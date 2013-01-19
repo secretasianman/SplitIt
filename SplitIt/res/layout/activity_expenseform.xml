@@ -3,101 +3,175 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/title"
+    <ImageView
+        android:id="@+id/menuBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="-20dp"
+        android:paddingTop="0dp"
+        android:src="@drawable/menubg" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="10dp"
+        android:text="Pirate Rob"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/paymentsButton"
+        android:layout_width="108dp"
+        android:layout_height="39dp"
+        android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
-        android:text="@string/add_expense"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginTop="14dp"
+        android:background="@drawable/inactivebutton"
+        android:text="@string/pay"
+        android:textColor="@color/green" />
+
+    <Button
+        android:id="@+id/newButton"
+        android:layout_width="108dp"
+        android:layout_height="39dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/paymentsButton"
+        android:background="@drawable/activebutton"
+        android:clickable="true"
+        android:text="@string/new_split"
+        android:textColor="@color/green" />
+
+    <Button
+        android:id="@+id/chargesButton"
+        android:layout_width="108dp"
+        android:layout_height="39dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/paymentsButton"
+        android:background="@drawable/inactivebutton"
+        android:clickable="true"
+        android:text="@string/charge"
+        android:textColor="@color/green" />
+    
+        <TextView
+            android:id="@+id/firstNameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="140dp"
+            android:text="@string/vendor"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/faded_grey" />
 
     <TextView
-        android:id="@+id/vendorLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title"
-        android:layout_marginTop="10dp"
-        android:text="@string/vendor"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/vendorInput"
+        android:id="@+id/lastNameLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vendorLabel"
-        android:ems="10"
-        android:inputType="text" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/amountLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vendorInput"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/firstNameInput"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/amount"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/faded_grey" />
 
     <EditText
-        android:id="@+id/amountInput"
+        android:id="@+id/lastNameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/amountLabel"
+        android:layout_below="@+id/lastNameLabel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="textPersonName"
+        android:textColor="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/descriptionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/amountInput"
-        android:layout_marginTop="10dp"
-        android:text="@string/description"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/descriptionInput"
+        android:id="@+id/phoneNumberLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/descriptionLabel"
+        android:layout_below="@+id/lastNameInput"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/faded_grey" />
+
+    <EditText
+        android:id="@+id/phoneNumberInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/phoneNumberLabel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="number"
+        android:textColor="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/partiesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/descriptionInput"
-        android:layout_marginTop="10dp"
-        android:text="@string/parties"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/partiesInput"
+        android:id="@+id/venmoIdLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/partiesLabel"
+        android:layout_below="@+id/phoneNumberInput"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Split It with"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/faded_grey" />
+
+    <EditText
+        android:id="@+id/venmoIdInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/venmoIdLabel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="@color/dark_grey" />
 
     <Button
         android:id="@+id/submitButton"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/venmoIdInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@color/green"
+        android:text="@string/submit"
+        android:textColor="@color/white" />
+
+    <EditText
+        android:id="@+id/firstNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/firstNameLabel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/dark_grey" />
+
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/partiesInput"
+        android:layout_below="@+id/menuBackground"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/submit" />
+        android:text="Enter New Split"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/green" />
 
 </RelativeLayout>
