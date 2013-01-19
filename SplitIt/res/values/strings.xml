@@ -17,5 +17,11 @@
     <string name="new_split">NEW</string>
     <string name="pay">PAY</string>
     <string name="charge">CHARGE</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_user">Create User</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone Number (digits only)</string>
+    <string name="venmo_id">Venmo Username</string>
 
 </resources>
