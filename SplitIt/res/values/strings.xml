@@ -4,5 +4,15 @@
     <string name="app_name">SplitIt</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="add_expense">Add Split</string>
+    <string name="add_group">Add Group</string>
+    <string name="in">In</string>
+    <string name="out">Out</string>
+    <string name="dolla">$1.23</string>
+    <string name="vendor">Vendor</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="parties">Parties</string>
+    <string name="submit">Submit</string>
 
 </resources>

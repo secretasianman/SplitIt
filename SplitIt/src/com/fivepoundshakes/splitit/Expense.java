@@ -8,10 +8,9 @@ public class Expense extends StackMobModel {
 
     private User       owner;
     private List<User> parties;
-    
-    private String vendor;
-    private int    amount; // in cents
-    private String description;
+    private String     vendor;
+    private int        amount; // in cents
+    private String     description;
     
     public Expense(User owner, List<User> parties, String vendor, int amount,
             String description) {

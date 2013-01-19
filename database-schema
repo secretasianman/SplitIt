@@ -3,6 +3,7 @@ Users
 username (phone number or similar)
 first_name
 last_name
+phone_number
 venmo_id
 
 

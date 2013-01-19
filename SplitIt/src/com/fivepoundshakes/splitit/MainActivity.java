@@ -1,17 +1,30 @@
 package com.fivepoundshakes.splitit;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.stackmob.android.sdk.common.StackMobAndroid;
-import com.stackmob.sdk.callback.StackMobModelCallback;
+import com.stackmob.sdk.api.StackMobQuery;
+import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
 public class MainActivity extends Activity {
 
+    User self;
+    String serial;
+    
+    Button addExpenseButton;
+    Button addGroupButton;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,63 +32,10 @@ public class MainActivity extends Activity {
         StackMobAndroid.init(getApplicationContext(), 0,
                 "ce86bf3d-f248-4c91-ac03-10e4244faa4c");
         
-        // Testing User
-        User u = new User("robert", "Robert", "Li", "robertli");
-        u.save(new StackMobModelCallback() {
-            @Override
-            public void failure(StackMobException arg0) {
-                System.out.println("Failure: " + arg0.getMessage());
-            }
-            
-            @Override
-            public void success() {
-                System.out.println("Success!");
-            }
-        });
+        getUser();
         
-        // Make more!
-        User u1 = new User("jean", "Jean", "Kim", "jeankim");
-        u1.save(new StackMobModelCallback() {
-            @Override
-            public void failure(StackMobException arg0) {
-                System.out.println("Failure: " + arg0.getMessage());
-            }
-            
-            @Override
-            public void success() {
-                System.out.println("Success!");
-            }
-        });
-        
-        User u2 = new User("aimee", "Aimee", "Kim", "aimeekim");
-        u2.save(new StackMobModelCallback() {
-            @Override
-            public void failure(StackMobException arg0) {
-                System.out.println("Failure: " + arg0.getMessage());
-            }
-            
-            @Override
-            public void success() {
-                System.out.println("Success!");
-            }
-        });
-        
-        // Test Expense
-        ArrayList<User> parties = new ArrayList<User>();
-        parties.add(u1);
-        parties.add(u2);
-        Expense e = new Expense(u, parties, "McDonald's", 50, "50 McChickens!");
-        e.save(new StackMobModelCallback() {
-            @Override
-            public void failure(StackMobException arg0) {
-                System.out.println("Failure: " + arg0.getMessage());
-            }
-            
-            @Override
-            public void success() {
-                System.out.println("Success!");
-            }
-        });
+        initViews();
+        initHandlers();
     }
 
     @Override
@@ -83,6 +43,62 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+    
+    private void getUser() {
+        TelephonyManager tMgr =
+                (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        serial = tMgr.getDeviceId();
+        System.out.println("serial: " + serial);
+        
+        User.query(User.class,
+                new StackMobQuery().fieldIsEqualTo("username", serial),
+                new StackMobQueryCallback<User>() {
+            @Override
+            public void failure(StackMobException e) {
+                newUser();
+            }
+
+            @Override
+            public void success(List<User> users) {
+                if (users.size() == 0) {
+                    newUser();
+                    return;
+                }
+                self = users.get(0);
+                System.out.println("got user");
+            }
+            
+            private void newUser() {
+                self = new User(serial, "Robert", "Li", "4085135799",
+                        "robertli");
+                self.save();
+                System.out.println("made new user");
+            }
+        });
+    }
+    
+    /**
+     * Initializes fields to their respective Views.
+     */
+    private void initViews() {
+        addExpenseButton = (Button) findViewById(R.id.addExpenseButton);
+        addGroupButton   = (Button) findViewById(R.id.addGroupButton);
+    }
+    
+    /**
+     * Initializes button handlers.
+     */
+    private void initHandlers() {
+        addExpenseButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),
+                        ExpenseFormActivity.class);
+                i.putExtra("serial", serial);
+                startActivity(i);
+            }
+        });
     }
 
 }
