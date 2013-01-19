@@ -30,37 +30,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1" >
+        android:layout_below="@+id/imageView1" >
     </ListView>
 
     <Button
-        android:id="@+id/Button02"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:id="@+id/Button01"
+        android:layout_width="108dp"
+        android:layout_height="44dp"
         android:layout_below="@+id/textView1"
-        android:clickable="true"
-        android:text="@string/charge"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/inactivebutton"
+        android:paddingTop="8dp"
+        android:text="@string/pay"
         android:textColor="@color/green" />
 
     <Button
-        android:id="@+id/Button01"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:text="@string/pay"
-        android:textColor="@color/green" />
-        
-    <Button
         android:id="@+id/button1"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_width="108dp"
+        android:layout_height="44dp"
         android:layout_alignBaseline="@+id/Button01"
         android:layout_alignBottom="@+id/Button01"
         android:layout_alignParentLeft="true"
+        android:background="@drawable/inactivebutton"
         android:clickable="true"
+        android:paddingTop="8dp"
         android:text="@string/new_split"
+        android:textColor="@color/green" />
+
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="108dp"
+        android:layout_height="44dp"
+        android:layout_alignBottom="@+id/Button01"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/activebutton"
+        android:clickable="true"
+        android:paddingTop="8dp"
+        android:text="@string/charge"
         android:textColor="@color/green" />
 
 </RelativeLayout>
