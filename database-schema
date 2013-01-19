@@ -8,14 +8,9 @@ venmo_id
 
 Expenses
 ============
-expenses_id
+expense_id
 owner [fk]
+parties [fk - one to many]
 amount
 vendor
 description
-
-
-InvolvedParties
-===============
-expense [fk]
-user [fk]
