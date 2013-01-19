@@ -10,7 +10,9 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.stackmob.sdk.api.StackMobOptions;
 import com.stackmob.sdk.api.StackMobQuery;
@@ -21,19 +23,26 @@ public class ListPaymentsActivity extends Activity {
 
     private User self;
     private String serial;
+    private String displayname;
     
     private List<ListEntry> aggregates;
     private Map<User, List<Expense>> indivs;
     
+    private TextView name;
+    private Button   newButton;
+    private Button   paymentsButton;
+    private Button   chargesButton;
     private ListView list;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listpayments);
+        setContentView(R.layout.activity_listaggregates);
         
-        Intent i = getIntent();
-        serial = (String) i.getExtras().get("serial");
+        
+        Intent i    = getIntent();
+        serial      = (String) i.getExtras().get("serial");
+        displayname = (String) i.getExtras().get("displayname");
         getUser();
         
         initViews();
@@ -62,7 +71,14 @@ public class ListPaymentsActivity extends Activity {
     }
     
     private void initViews() {
-        list = (ListView) findViewById(R.id.list);
+        name           = (TextView) findViewById(R.id.name);
+        newButton      = (Button)   findViewById(R.id.newButton);
+        paymentsButton = (Button)   findViewById(R.id.paymentsButton);
+        chargesButton  = (Button)   findViewById(R.id.chargesButton);
+        list           = (ListView) findViewById(R.id.list);
+        
+        name.setText(displayname);
+        paymentsButton.setBackgroundResource(R.drawable.activebutton);
     }
     
     private void refresh() {

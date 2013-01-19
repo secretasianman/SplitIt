@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/menuBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,58 +14,55 @@
         android:src="@drawable/menubg" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="16dp"
-        android:text="Medium Text"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="10dp"
+        android:text="Shit Head"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1" >
+        android:layout_below="@+id/menuBackground" >
     </ListView>
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/paymentsButton"
         android:layout_width="108dp"
-        android:layout_height="44dp"
-        android:layout_below="@+id/textView1"
+        android:layout_height="39dp"
+        android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
         android:background="@drawable/inactivebutton"
-        android:paddingTop="8dp"
         android:text="@string/pay"
         android:textColor="@color/green" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/newButton"
         android:layout_width="108dp"
-        android:layout_height="44dp"
-        android:layout_alignBaseline="@+id/Button01"
-        android:layout_alignBottom="@+id/Button01"
+        android:layout_height="39dp"
         android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/paymentsButton"
         android:background="@drawable/inactivebutton"
         android:clickable="true"
-        android:paddingTop="8dp"
         android:text="@string/new_split"
         android:textColor="@color/green" />
 
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/chargesButton"
         android:layout_width="108dp"
-        android:layout_height="44dp"
-        android:layout_alignBottom="@+id/Button01"
+        android:layout_height="39dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/activebutton"
+        android:layout_alignTop="@+id/paymentsButton"
+        android:background="@drawable/inactivebutton"
         android:clickable="true"
-        android:paddingTop="8dp"
         android:text="@string/charge"
         android:textColor="@color/green" />
 

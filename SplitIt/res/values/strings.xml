@@ -15,8 +15,8 @@
     <string name="parties">Parties</string>
     <string name="submit">Submit</string>
     <string name="new_split">NEW</string>
-    <string name="pay">PAY</string>
-    <string name="charge">CHARGE</string>
+    <string name="pay">PAYMENTS</string>
+    <string name="charge">CHARGES</string>
     <string name="cancel">Cancel</string>
     <string name="create_user">Create User</string>
     <string name="first_name">First Name</string>
