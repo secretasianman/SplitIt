@@ -4,90 +4,81 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/add_expense"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/vendorLabel"
+        android:id="@+id/firstNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title"
         android:layout_marginTop="10dp"
-        android:text="@string/vendor"
+        android:text="@string/first_name"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/vendorInput"
+        android:id="@+id/firstNameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vendorLabel"
+        android:layout_below="@+id/firstNameLabel"
         android:ems="10"
-        android:inputType="text" >
+        android:inputType="textPersonName" >
 
         <requestFocus />
     </EditText>
 
     <TextView
-        android:id="@+id/amountLabel"
+        android:id="@+id/lastNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vendorInput"
+        android:layout_below="@+id/firstNameInput"
         android:layout_marginTop="10dp"
-        android:text="@string/amount"
+        android:text="@string/last_name"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/amountInput"
+        android:id="@+id/lastNameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/amountLabel"
+        android:layout_below="@+id/lastNameLabel"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/descriptionLabel"
+        android:id="@+id/phoneNumberLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/amountInput"
+        android:layout_below="@+id/lastNameInput"
         android:layout_marginTop="10dp"
-        android:text="@string/description"
+        android:text="@string/phone_number"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/descriptionInput"
+        android:id="@+id/phoneNumberInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/descriptionLabel"
+        android:layout_below="@+id/phoneNumberLabel"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="number" />
 
     <TextView
-        android:id="@+id/partiesLabel"
+        android:id="@+id/venmoIdLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/descriptionInput"
+        android:layout_below="@+id/phoneNumberInput"
         android:layout_marginTop="10dp"
-        android:text="@string/parties"
+        android:text="@string/venmo_id"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/partiesInput"
+        android:id="@+id/venmoIdInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/partiesLabel"
+        android:layout_below="@+id/venmoIdLabel"
         android:ems="10"
         android:inputType="text" />
 
@@ -95,9 +86,18 @@
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/partiesInput"
+        android:layout_below="@+id/venmoIdInput"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="@string/submit" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/create_user"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

@@ -17,13 +17,13 @@ import android.widget.EditText;
 
 public class ExpenseFormActivity extends Activity {
 
-    User self;
-    String serial;
+    private User self;
+    private String serial;
     
-    EditText vendorInput;
-    EditText amountInput;
-    EditText descriptionInput;
-    Button   submitButton;
+    private EditText vendorInput;
+    private EditText amountInput;
+    private EditText descriptionInput;
+    private Button   submitButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +45,16 @@ public class ExpenseFormActivity extends Activity {
                 new StackMobQueryCallback<User>() {
             @Override
             public void failure(StackMobException e) {
-                newUser();
+                Toaster.show(getApplicationContext(), "User lookup error - fail");
             }
 
             @Override
             public void success(List<User> users) {
                 if (users.size() == 0) {
-                    newUser();
-                    return;
+                    Toaster.show(getApplicationContext(), "User lookup error - no results");
                 }
                 self = users.get(0);
                 System.out.println("got user");
-            }
-            
-            private void newUser() {
-                self = new User(serial, "Robert", "Li", "4085135799",
-                        "robertli");
-                self.save();
-                System.out.println("made new user");
             }
         });
     }

@@ -3,15 +3,20 @@ package com.fivepoundshakes.splitit;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.fivepoundshakes.splitit.VenmoLibrary.VenmoResponse;
 import com.stackmob.android.sdk.common.StackMobAndroid;
@@ -24,21 +29,21 @@ public class MainActivity extends Activity {
         VENMO
     };
     
-	final String VENMO_APP_ID = "1219";
-	final String VENMO_APP_SECRET = "Xzygvtey8MhKw9Fgf3PdNHMkxLZfU9pw";
-	final String VENMO_APP_NAME = "SplitIt";
-	final String VENMO_TEST_TXN = "pay";
+    private final String VENMO_APP_ID = "1219";
+    private final String VENMO_APP_SECRET = "Xzygvtey8MhKw9Fgf3PdNHMkxLZfU9pw";
+    private final String VENMO_APP_NAME = "SplitIt";
+    private final String VENMO_TEST_TXN = "pay";
 	
 	//Test vars
-	String VENMO_TEST_RECIPIENT = "robertli";
-	String VENMO_TEST_AMT = "1";
-	String VENMO_TEST_NOTE = "Testing this shit, foo!";
+    private String VENMO_TEST_RECIPIENT = "robertli";
+    private String VENMO_TEST_AMT = "1";
+    private String VENMO_TEST_NOTE = "Testing this shit, foo!";
 	
-    User self;
-    String serial;
+    private User self;
+    private String serial;
     
-    Button addExpenseButton;
-    Button addGroupButton;
+    private Button addExpenseButton;
+    private Button addGroupButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,24 +76,19 @@ public class MainActivity extends Activity {
                 new StackMobQueryCallback<User>() {
             @Override
             public void failure(StackMobException e) {
+                System.out.println("failure");
                 newUser();
             }
 
             @Override
             public void success(List<User> users) {
                 if (users.size() == 0) {
+                    System.out.println("no results");
                     newUser();
                     return;
                 }
                 self = users.get(0);
                 System.out.println("got user");
-            }
-            
-            private void newUser() {
-                self = new User(serial, "Robert", "Li", "4085135799",
-                        "robertli");
-                self.save();
-                System.out.println("made new user");
             }
         });
     }
@@ -160,6 +160,16 @@ public class MainActivity extends Activity {
             break;
             }           
         }
+    }
+    
+    /**
+     * Prompt user for details and adds new user to database.
+     */
+    private void newUser() {
+        Intent i = new Intent(getApplicationContext(), NewUserActivity.class);
+        i.putExtra("serial", serial);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(i);
     }
 
 }
