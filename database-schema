@@ -1,7 +1,14 @@
+Users
+=====
+id (phone number or similar)
+first name
+last name
+venmoId
+
 Expenses
 ============
 id
-user (phone number or similar)
+userId [fk]
 amount
 vendor
 description
@@ -9,5 +16,5 @@ description
 
 InvolvedParties
 ===============
-transId
-user
+transId [fk]
+userId [fk]
