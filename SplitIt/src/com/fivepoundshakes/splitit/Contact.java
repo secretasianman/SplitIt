@@ -33,8 +33,6 @@ public class Contact {
 	
 	public boolean contains(String comp){
 		for(ContactPoint curr : contactPoints){
-			Log.e("..",clean(curr.getVal())+ " : " + clean(comp));
-			System.out.println(clean(curr.getVal()).equals(clean(comp)));
 			if(clean(curr.getVal()).equals(clean(comp))){
 				return true;
 			}

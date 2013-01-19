@@ -24,7 +24,7 @@ public class ContactAdapter extends ArrayAdapter<Contact>{
 	    LayoutInflater inflater = (LayoutInflater) context
 	        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    View rowView = inflater.inflate(R.layout.activity_contacts, parent, false);
-	    TextView textView = (TextView) rowView.findViewById(R.id.label);
+	    TextView textView = (TextView) rowView.findViewById(R.id.listEl);
 	    textView.setText(values.get(position).getName());
 	    // Change the icon for Windows and iPhone
 	    String s = values.get(position).getName();

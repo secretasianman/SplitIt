@@ -55,9 +55,7 @@ public class ContactsActivity extends ListActivity {
 		return contacts;
 	}
 
-	
-	
-	
+
 	class TargetContact{
 		String name,val;
 		
