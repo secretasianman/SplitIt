@@ -21,16 +21,17 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="10dp"
-        android:text="Shit Head"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white" />
 
     <ListView
-        android:id="@+id/list"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/menuBackground" >
+        android:layout_below="@+id/menuBackground"
+        android:background="@color/money_green" >
     </ListView>
 
     <Button

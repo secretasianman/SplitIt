@@ -4,7 +4,7 @@
     <string name="app_name">SplitIt</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="add_expense">Add Split</string>
+    <string name="add_expense">Enter New Split</string>
     <string name="add_group">Add Group</string>
     <string name="in">In</string>
     <string name="out">Out</string>
@@ -25,7 +25,8 @@
     <string name="venmo_id">Venmo Username</string>
     <string name="payments">Payments</string>
     <string name="pending">pending</string>
-	<string name="contacts">View Contacts</string>
+    <string name="contacts">View Contacts</string>
     <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="splitwith">Split It with</string>
 
 </resources>

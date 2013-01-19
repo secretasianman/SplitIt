@@ -21,7 +21,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="10dp"
-        android:text="Pirate Rob"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white" />
 
@@ -57,24 +56,24 @@
         android:clickable="true"
         android:text="@string/charge"
         android:textColor="@color/green" />
-    
-        <TextView
-            android:id="@+id/firstNameLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="140dp"
-            android:text="@string/vendor"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/faded_grey" />
 
     <TextView
-        android:id="@+id/lastNameLabel"
+        android:id="@+id/vendorLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/firstNameInput"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/vendor"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/faded_grey" />
+
+    <TextView
+        android:id="@+id/amountLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/vendorInput"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/amount"
@@ -82,59 +81,59 @@
         android:textColor="@color/faded_grey" />
 
     <EditText
-        android:id="@+id/lastNameInput"
+        android:id="@+id/amountInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lastNameLabel"
+        android:layout_below="@+id/amountLabel"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:textColor="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/phoneNumberLabel"
+        android:id="@+id/descriptionLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lastNameInput"
+        android:layout_below="@+id/amountInput"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="Description"
+        android:text="@string/description"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/faded_grey" />
 
     <EditText
-        android:id="@+id/phoneNumberInput"
+        android:id="@+id/descriptionInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/phoneNumberLabel"
+        android:layout_below="@+id/descriptionLabel"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="text"
         android:textColor="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/venmoIdLabel"
+        android:id="@+id/splitWithLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/phoneNumberInput"
+        android:layout_below="@+id/descriptionInput"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="Split It with"
+        android:text="@string/splitwith"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/faded_grey" />
 
     <EditText
-        android:id="@+id/venmoIdInput"
+        android:id="@+id/splitWithInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/venmoIdLabel"
+        android:layout_below="@+id/splitWithLabel"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
@@ -145,7 +144,7 @@
         android:id="@+id/submitButton"
         android:layout_width="110dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/venmoIdInput"
+        android:layout_below="@+id/splitWithInput"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@color/green"
@@ -153,11 +152,11 @@
         android:textColor="@color/white" />
 
     <EditText
-        android:id="@+id/firstNameInput"
+        android:id="@+id/vendorInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/firstNameLabel"
+        android:layout_below="@+id/vendorLabel"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
@@ -170,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/menuBackground"
         android:layout_centerHorizontal="true"
-        android:text="Enter New Split"
+        android:text="@string/add_expense"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/green" />
 

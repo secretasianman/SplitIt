@@ -7,11 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.stackmob.sdk.api.StackMobOptions;
@@ -19,7 +21,7 @@ import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
-public class ListPaymentsActivity extends Activity {
+public class ListPaymentsActivity extends ListActivity {
 
     private User self;
     private String serial;
@@ -32,13 +34,14 @@ public class ListPaymentsActivity extends Activity {
     private Button   newButton;
     private Button   paymentsButton;
     private Button   chargesButton;
-    private ListView list;
     
-    @Override
+    private ListEntryAdapter adapter;
+    private LayoutInflater vi;
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listaggregates);
-        
+        vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         
         Intent i    = getIntent();
         serial      = (String) i.getExtras().get("serial");
@@ -75,10 +78,14 @@ public class ListPaymentsActivity extends Activity {
         newButton      = (Button)   findViewById(R.id.newButton);
         paymentsButton = (Button)   findViewById(R.id.paymentsButton);
         chargesButton  = (Button)   findViewById(R.id.chargesButton);
-        list           = (ListView) findViewById(R.id.list);
         
         name.setText(displayname);
         paymentsButton.setBackgroundResource(R.drawable.activebutton);
+        
+        aggregates = new LinkedList<ListEntry>();
+        adapter = new ListEntryAdapter(getApplicationContext(),
+                aggregates, vi);
+        setListAdapter(adapter);
     }
     
     private void refresh() {
@@ -106,6 +113,7 @@ public class ListPaymentsActivity extends Activity {
                     list.add(expense);
                     indivs.put(expense.owner, list);
                 }
+                System.out.println(indivs.size());
 
                 aggregates = new ArrayList<ListEntry>(indivs.size());
                 for (Map.Entry<User, List<Expense>> entry : indivs.entrySet()) {
@@ -119,17 +127,16 @@ public class ListPaymentsActivity extends Activity {
                     }
                     aggregates.add(new ListEntry(user, total, true));
                 }
+                System.out.println(aggregates.size());
+                for (ListEntry entry : aggregates) {
+                    System.out.println(entry);
+                }
                 
-                // TODO update listview
+                adapter = new ListEntryAdapter(getParent(),
+                        aggregates, vi);
+                setListAdapter(adapter);
             }
         });
     }
     
-    /*
-     * Have a list hold the aggregates, and a list of lists to hold the indivs.
-     * Put this in a method because there's gonna be a refresh button.
-     * Sort by name to make it easier to find the person you want to pay.
-     * Pending at the bottom (pretty much a separate list).
-     * Make a list entry class, perhaps.
-     */
 }

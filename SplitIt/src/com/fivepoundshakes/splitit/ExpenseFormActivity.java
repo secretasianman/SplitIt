@@ -14,12 +14,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ExpenseFormActivity extends Activity {
 
     private User self;
     private String serial;
-    
+    private String displayname;
+
+    private TextView name;
+    private Button   newButton;
+    private Button   paymentsButton;
+    private Button   chargesButton;
     private EditText vendorInput;
     private EditText amountInput;
     private EditText descriptionInput;
@@ -32,6 +38,7 @@ public class ExpenseFormActivity extends Activity {
         
         Intent i = getIntent();
         serial = (String) i.getExtras().get("serial");
+        displayname = (String) i.getExtras().get("displayname");
         getUser();
         
         initViews();
@@ -63,10 +70,16 @@ public class ExpenseFormActivity extends Activity {
      * Initializes fields to their respective Views.
      */
     private void initViews() {
+        name             = (TextView) findViewById(R.id.name);
+        newButton        = (Button)   findViewById(R.id.newButton);
+        paymentsButton   = (Button)   findViewById(R.id.paymentsButton);
+        chargesButton    = (Button)   findViewById(R.id.chargesButton);
         vendorInput      = (EditText) findViewById(R.id.vendorInput);
         amountInput      = (EditText) findViewById(R.id.amountInput);
         descriptionInput = (EditText) findViewById(R.id.descriptionInput);
         submitButton     = (Button)   findViewById(R.id.submitButton);
+        
+        name.setText(displayname);
     }
     
     /**

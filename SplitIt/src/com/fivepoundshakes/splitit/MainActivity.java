@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
         
         initViews();
         initHandlers();
+        
     }
 
     @Override
