@@ -1,0 +1,13 @@
+Expenses
+============
+id
+user (phone number or similar)
+amount
+vendor
+description
+
+
+InvolvedParties
+===============
+transId
+user
