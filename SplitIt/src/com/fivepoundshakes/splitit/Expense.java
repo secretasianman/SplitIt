@@ -6,11 +6,11 @@ import com.stackmob.sdk.model.StackMobModel;
 
 public class Expense extends StackMobModel {
 
-    private User       owner;
-    private List<User> parties;
-    private String     vendor;
-    private int        amount; // in cents
-    private String     description;
+    protected User       owner;
+    protected List<User> parties;
+    protected String     vendor;
+    protected int        amount; // in cents
+    protected String     description;
     
     public Expense(User owner, List<User> parties, String vendor, int amount,
             String description) {
@@ -20,5 +20,15 @@ public class Expense extends StackMobModel {
         this.vendor      = vendor;
         this.amount      = amount;
         this.description = description;
+    }
+    
+    @Override
+    public String toString() {
+        String s = owner + " paid " + vendor + " " + amount + " for " +
+                description + ", ";
+        for (User user : parties) {
+            s += user + ", ";
+        }
+        return s.substring(0, s.length() - 2);
     }
 }

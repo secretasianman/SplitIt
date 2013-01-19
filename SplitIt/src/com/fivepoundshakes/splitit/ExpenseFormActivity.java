@@ -86,8 +86,11 @@ public class ExpenseFormActivity extends Activity {
                     return;
                 }
                 
-                Expense e = new Expense(self, new ArrayList<User>(), vendor,
-                        amount, description);
+                List<User> parties = new ArrayList<User>();
+                parties.add(self);
+                
+                Expense e = new Expense(self, parties, vendor,
+                        amount, description); // TODO fix this
                 e.save();
                 
                 finish();

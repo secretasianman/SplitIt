@@ -114,6 +114,17 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+        
+        //TEMP€
+        addGroupButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),
+                        ListPaymentsActivity.class);
+                i.putExtra("serial", serial);
+                startActivity(i);
+            }
+        });
     }
     
     /**
