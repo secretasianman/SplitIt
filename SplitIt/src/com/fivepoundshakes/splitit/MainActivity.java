@@ -20,6 +20,10 @@ import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
 public class MainActivity extends Activity {
+    enum RequestCode {
+        VENMO
+    };
+    
 	final String VENMO_APP_ID = "1219";
 	final String VENMO_APP_SECRET = "Xzygvtey8MhKw9Fgf3PdNHMkxLZfU9pw";
 	final String VENMO_APP_NAME = "SplitIt";
@@ -30,7 +34,6 @@ public class MainActivity extends Activity {
 	String VENMO_TEST_AMT = "1";
 	String VENMO_TEST_NOTE = "Testing this shit, foo!";
 	
-
     User self;
     String serial;
     
@@ -121,10 +124,9 @@ public class MainActivity extends Activity {
         try {
         	//Needs input from split input page
             Intent venmoIntent = VenmoLibrary.openVenmoPayment(VENMO_APP_ID, VENMO_APP_NAME, recipient, amt, note, VENMO_TEST_TXN);
-            startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 
-        }
-        catch (android.content.ActivityNotFoundException er) //Venmo native app not install on device, so let's instead open a mobile web version of Venmo in a WebView
-        {
+            startActivityForResult(venmoIntent, RequestCode.VENMO.ordinal());
+        } catch (android.content.ActivityNotFoundException er) {
+            //Venmo native app not install on device, so let's instead open a mobile web version of Venmo in a WebView
             Intent venmoIntent = new Intent(MainActivity.this, VenmoWebViewActivity.class);
             String venmo_uri = VenmoLibrary.openVenmoPaymentInWebView(VENMO_APP_ID, VENMO_APP_NAME, recipient, amt, note, VENMO_TEST_TXN);
             venmoIntent.putExtra("url", venmo_uri);
@@ -135,8 +137,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        switch(requestCode) {
-            case 1: { //1 is the requestCode we picked for Venmo earlier when we called startActivityForResult
+        RequestCode request = RequestCode.values()[requestCode];
+        switch(request) {
+            case VENMO: {
                 if(resultCode == RESULT_OK) {
                     String signedrequest = data.getStringExtra("signedrequest");
                     if(signedrequest != null) {
