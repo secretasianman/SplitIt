@@ -24,5 +24,6 @@
     <string name="phone_number">Phone Number (digits only)</string>
     <string name="venmo_id">Venmo Username</string>
     <string name="payments">Payments</string>
+    <string name="pending">pending</string>
 
 </resources>

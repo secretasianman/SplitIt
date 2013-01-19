@@ -52,7 +52,7 @@
         android:layout_alignTop="@+id/textView1"
         android:layout_marginTop="11dp"
         android:paddingLeft="235dp"
-        android:text="pending"
+        android:text="@string/pending"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/faded_grey"
         android:textStyle="italic" />
