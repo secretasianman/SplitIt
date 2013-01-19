@@ -25,5 +25,7 @@
     <string name="venmo_id">Venmo Username</string>
     <string name="payments">Payments</string>
     <string name="pending">pending</string>
+	<string name="contacts">View Contacts</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
 
 </resources>

@@ -10,7 +10,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -39,6 +40,11 @@
         </activity>
         <activity
             android:name="ListPaymentsActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="ContactsActivity"
+            android:label="@string/title_activity_contacts" 
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
     </application>

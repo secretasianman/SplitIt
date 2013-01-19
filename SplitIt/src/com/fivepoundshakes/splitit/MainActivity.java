@@ -3,20 +3,14 @@ package com.fivepoundshakes.splitit;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.fivepoundshakes.splitit.VenmoLibrary.VenmoResponse;
 import com.stackmob.android.sdk.common.StackMobAndroid;
@@ -44,6 +38,7 @@ public class MainActivity extends Activity {
     
     private Button addExpenseButton;
     private Button addGroupButton;
+    private Button viewContactsButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +94,7 @@ public class MainActivity extends Activity {
     private void initViews() {
         addExpenseButton = (Button) findViewById(R.id.addExpenseButton);
         addGroupButton   = (Button) findViewById(R.id.addGroupButton);
+        viewContactsButton = (Button) findViewById(R.id.viewContacts);
     }
     
     /**
@@ -123,6 +119,16 @@ public class MainActivity extends Activity {
                         ListPaymentsActivity.class);
                 i.putExtra("serial", serial);
                 i.putExtra("displayname", self.first_name + " " + self.last_name);
+                startActivity(i);
+            }
+        });
+        
+        viewContactsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),
+                        ContactsActivity.class);
+                i.putExtra("serial", serial);
                 startActivity(i);
             }
         });
