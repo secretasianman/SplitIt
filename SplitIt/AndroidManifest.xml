@@ -27,6 +27,11 @@
         </activity>
         <activity android:name="ExpenseFormActivity" >
         </activity>
+        <activity android:name="VenmoWebViewActivity" android:theme="@android:style/Theme.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>
+
+
+
