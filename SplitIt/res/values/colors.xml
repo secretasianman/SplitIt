@@ -2,5 +2,10 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="green">#009179</color>
+    <color name="light_grey">#D1D3D4</color>
+    <color name="dark_grey">#232323</color>
+    <color name="money_red">#ED1C24</color>
+    <color name="money_green">#39B54A</color>
+    <color name="faded_grey">#939598</color>
     
 </resources>
