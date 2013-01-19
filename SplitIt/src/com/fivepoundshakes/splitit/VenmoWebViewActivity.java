@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View; 
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 
@@ -44,7 +46,20 @@ public class VenmoWebViewActivity extends Activity {
         	mVenmoWebView.getSettings().setJavaScriptEnabled(true);
         	mVenmoWebView.getSettings().setUserAgentString("venmo-android-2.0");
     		mVenmoWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        	
+        	//Fix cancel button within webview.
+        	WebViewClient wvClient = new WebViewClient(){
+        	    @Override
+        	    public boolean shouldOverrideUrlLoading(WebView  view, String  url){
+        	    	if(url.equals("cancel:")){
+        	    		finish();
+        	    	}
+        	        return true;
+        	    }
+        	};
+        	
         	mVenmoWebView.loadUrl(mUrl);
+        	mVenmoWebView.setWebViewClient(wvClient);
     	}
 		
 	}	

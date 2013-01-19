@@ -122,7 +122,6 @@ public class MainActivity extends Activity {
     private void venmoInit(String recipient, String amt, String note){
     	
         try {
-        	//Needs input from split input page
             Intent venmoIntent = VenmoLibrary.openVenmoPayment(VENMO_APP_ID, VENMO_APP_NAME, recipient, amt, note, VENMO_TEST_TXN);
             startActivityForResult(venmoIntent, RequestCode.VENMO.ordinal());
         } catch (android.content.ActivityNotFoundException er) {
