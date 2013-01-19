@@ -14,5 +14,8 @@
     <string name="description">Description</string>
     <string name="parties">Parties</string>
     <string name="submit">Submit</string>
+    <string name="new_split">NEW</string>
+    <string name="pay">PAY</string>
+    <string name="charge">CHARGE</string>
 
 </resources>
