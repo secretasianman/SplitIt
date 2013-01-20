@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/logo"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="25dp"
@@ -19,7 +19,7 @@
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/paymentsLabel"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
@@ -36,22 +36,20 @@
         android:textColor="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
+        android:id="@+id/paymentAmountLabel"
+        android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/addExpenseButton"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="22dp"
+        android:layout_alignRight="@+id/paymentsLabel"
+        android:layout_alignTop="@+id/paymentsLabel"
         android:gravity="right"
         android:paddingRight="25dp"
-        android:paddingTop="10dp"
+        android:paddingTop="12dp"
         android:text="$141.50"
         android:textColor="@color/money_red"
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/chargesLabel"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignLeft="@+id/addExpenseButton"
@@ -67,11 +65,11 @@
         android:textColor="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/TextView02"
+        android:id="@+id/chargeAmountLabel"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_alignRight="@+id/TextView01"
-        android:layout_alignTop="@+id/TextView01"
+        android:layout_alignRight="@+id/chargesLabel"
+        android:layout_alignTop="@+id/chargesLabel"
         android:gravity="right"
         android:paddingRight="25dp"
         android:paddingTop="12dp"
@@ -80,7 +78,7 @@
         android:textSize="30sp" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

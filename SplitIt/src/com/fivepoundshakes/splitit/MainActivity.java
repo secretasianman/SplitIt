@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.fivepoundshakes.splitit.VenmoLibrary.VenmoResponse;
 import com.stackmob.android.sdk.common.StackMobAndroid;
@@ -36,9 +37,11 @@ public class MainActivity extends Activity {
     private User self;
     private String serial;
     
-    private Button addExpenseButton;
-    private Button addGroupButton;
-    private Button viewContactsButton;
+    private Button   addExpenseButton;
+    private TextView paymentsLabel;
+    private TextView paymentAmountLabel;
+    private TextView chargesLabel;
+    private TextView chargeAmountLabel;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +96,11 @@ public class MainActivity extends Activity {
      * Initializes fields to their respective Views.
      */
     private void initViews() {
-        addExpenseButton = (Button) findViewById(R.id.addExpenseButton);
-//        addGroupButton   = (Button) findViewById(R.id.addGroupButton);
-//        viewContactsButton = (Button) findViewById(R.id.viewContacts);
+        addExpenseButton   = (Button)   findViewById(R.id.addExpenseButton);
+        paymentsLabel      = (TextView) findViewById(R.id.paymentsLabel);
+        paymentAmountLabel = (TextView) findViewById(R.id.paymentAmountLabel);
+        chargesLabel       = (TextView) findViewById(R.id.chargesLabel);
+        chargeAmountLabel  = (TextView) findViewById(R.id.chargeAmountLabel);
     }
     
     /**
@@ -113,24 +118,24 @@ public class MainActivity extends Activity {
             }
         });
         
-        // TODO TEMP
-        addGroupButton.setOnClickListener(new OnClickListener() {
+        paymentsLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),
-                        ListChargesActivity.class);
+                        ListPaymentsActivity.class);
                 i.putExtra("serial", serial);
                 i.putExtra("displayname", self.first_name + " " + self.last_name);
                 startActivity(i);
             }
         });
         
-        viewContactsButton.setOnClickListener(new OnClickListener() {
+        chargesLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),
-                        ContactsActivity.class);
+                        ListChargesActivity.class);
                 i.putExtra("serial", serial);
+                i.putExtra("displayname", self.first_name + " " + self.last_name);
                 startActivity(i);
             }
         });
