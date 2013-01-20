@@ -3,6 +3,8 @@ package com.fivepoundshakes.splitit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fivepoundshakes.splitit.MainActivity.RequestCode;
+import com.fivepoundshakes.splitit.VenmoLibrary.VenmoResponse;
 import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
@@ -29,7 +31,10 @@ public class ExpenseFormActivity extends Activity {
     private EditText vendorInput;
     private EditText amountInput;
     private EditText descriptionInput;
+    private Button	 splitWithBtn;
     private Button   submitButton;
+    
+    private List<User> parties;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class ExpenseFormActivity extends Activity {
         initViews();
         initHandlers();
         
+        parties = new ArrayList<User>();
     }
     
     private void getUser() {
@@ -78,6 +84,7 @@ public class ExpenseFormActivity extends Activity {
         amountInput      = (EditText) findViewById(R.id.amountInput);
         descriptionInput = (EditText) findViewById(R.id.descriptionInput);
         submitButton     = (Button)   findViewById(R.id.submitButton);
+        splitWithBtn   	 = (Button)   findViewById(R.id.splitWithBtn);
         
         name.setText(displayname);
     }
@@ -99,7 +106,6 @@ public class ExpenseFormActivity extends Activity {
                     return;
                 }
                 
-                List<User> parties = new ArrayList<User>();
                 parties.add(self);
                 
                 Expense e = new Expense(self, parties, vendor,
@@ -133,6 +139,47 @@ public class ExpenseFormActivity extends Activity {
                 finish();
             }
         });
+        
+        splitWithBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), 
+                        ContactsActivity.class);
+                startActivityForResult(i, 1);
+            }
+        });
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+    	switch(requestCode) {
+    	case 1: {
+    		if(resultCode == RESULT_OK) {
+    			ArrayList<String> result = data.getStringArrayListExtra("selected");
+    			String previewString = "";
+    			
+    			TextView splitWithList   = (TextView) findViewById(R.id.splitWithList);
+    			
+    			for(int i=0;i<result.size();i=i+2){
+    				previewString=previewString + result.get(i) +", ";
+    				String[] name = result.get(i).split(" ");
+    				String firstName = name[0];
+    				String lastName = null;
+    				String phoneNumber = result.get(i+1);
+    				
+    				if(name.length>1){
+    					lastName = name[1];
+    				}
+    				
+    				parties.add(new User(null,firstName,lastName,phoneNumber,null));
+    			}
+    			previewString = previewString.substring(0, previewString.length()-2);
+    			splitWithList.setText(previewString);
+    		}                
+    	}
+    	break;
+    	}           
     }
    
 }

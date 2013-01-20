@@ -127,8 +127,19 @@
         android:text="@string/splitwith"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/faded_grey" />
+    
+    <TextView
+        android:id="@+id/splitWithList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/splitWithLabel"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/dark_grey" />
 
-    <EditText
+    <!--EditText
         android:id="@+id/splitWithInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -138,13 +149,13 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:inputType="text"
-        android:textColor="@color/dark_grey" />
+        android:textColor="@color/dark_grey" /-->
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_below="@+id/splitWithInput"
+        android:layout_below="@+id/splitWithList"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -177,4 +188,14 @@
         android:textSize="24sp"
         android:textColor="@color/green" />
 
+    <Button
+        android:id="@+id/splitWithBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/splitWithLabel"
+        android:layout_alignBottom="@+id/splitWithLabel"
+        android:layout_centerHorizontal="true"
+        android:text="Contacts" />
+    
 </RelativeLayout>

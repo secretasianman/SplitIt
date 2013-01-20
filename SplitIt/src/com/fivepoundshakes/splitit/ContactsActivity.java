@@ -6,17 +6,36 @@ import java.util.regex.Pattern;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ListView;
 
-public class ContactsActivity extends ListActivity {
-	private TargetContact targetContacts = null;
-	
+public class ContactsActivity extends ListActivity{
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ContactAdapter adapter = new ContactAdapter(this,getContacts());
+		setContentView(R.layout.activity_contacts);
+		final ContactAdapter adapter = new ContactAdapter(this,getContacts());
 		setListAdapter(adapter);
+		
+		ListView lv = getListView();  
+        lv.setFastScrollEnabled(true);
+        
+        Button submitBtn     = (Button)   findViewById(R.id.submitBtn);
+        
+        submitBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent();
+            	i.putExtra("selected", adapter.getResult());
+        		setResult(RESULT_OK, i);
+        		finish();
+            }
+        });
 	}
 
 	@Override
@@ -54,22 +73,6 @@ public class ContactsActivity extends ListActivity {
 		cursor.close();
 		return contacts;
 	}
-
-
-	class TargetContact{
-		String name,val;
-		
-		private TargetContact(String name, String val){
-			this.name = name;
-			this.val = val;
-		}
-		
-		public String getName(){
-			return this.name;
-		}
-		
-		public String getVal(){
-			return this.val;
-		}
-	}
 }
+
+

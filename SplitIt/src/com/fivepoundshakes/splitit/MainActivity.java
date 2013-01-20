@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     private TextView chargesLabel;
     private TextView chargeAmountLabel;
     
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +102,7 @@ public class MainActivity extends Activity {
         paymentAmountLabel = (TextView) findViewById(R.id.paymentAmountLabel);
         chargesLabel       = (TextView) findViewById(R.id.chargesLabel);
         chargeAmountLabel  = (TextView) findViewById(R.id.chargeAmountLabel);
+        
     }
     
     /**
