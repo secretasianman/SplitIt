@@ -48,8 +48,9 @@ public class UserDetailsActivity extends ListActivity {
     private Button            payButton;
     
     private List<DetailEntry>  transactions;
+    private List<Expense>      expenses;
     private DetailEntryAdapter adapter;
-    private LayoutInflater   vi;
+    private LayoutInflater     vi;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,8 @@ public class UserDetailsActivity extends ListActivity {
         getRecipient();
         
         transactions = new LinkedList<DetailEntry>();
-        adapter = new DetailEntryAdapter(this, transactions, vi);
+        expenses     = new LinkedList<Expense>();
+        adapter      = new DetailEntryAdapter(this, transactions, vi);
         setListAdapter(adapter);
         
         initViews();
@@ -234,6 +236,7 @@ public class UserDetailsActivity extends ListActivity {
     }
     
     private void updateList(List<Expense> expenses) {
+        this.expenses.addAll(expenses);
         Collections.sort(expenses);
         int i = 0, j = 0;
         while (i < transactions.size()) {
@@ -272,10 +275,10 @@ public class UserDetailsActivity extends ListActivity {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_paymentform, null);
         
-        TextView  recipientText     = (TextView)  view.findViewById(R.id.recipientText);
-        final EditText  amountInput = (EditText)  view.findViewById(R.id.amountInput);
-        ImageView venmoImage        = (ImageView) view.findViewById(R.id.venmoImage);
-        ImageView cashImage         = (ImageView) view.findViewById(R.id.cashImage);
+        TextView recipientText     = (TextView)  view.findViewById(R.id.recipientText);
+        final EditText amountInput = (EditText)  view.findViewById(R.id.amountInput);
+        ImageView venmoImage       = (ImageView) view.findViewById(R.id.venmoImage);
+        ImageView cashImage        = (ImageView) view.findViewById(R.id.cashImage);
         
         builder.setView(view);
         final AlertDialog dialog = builder.show();
@@ -300,6 +303,16 @@ public class UserDetailsActivity extends ListActivity {
                 Toaster.show(getApplicationContext(),
                         "Transaction complete. Go pay " + recipientname +
                         " " + CurrencyCreator.toDollars(amount) + "!");
+                for (Expense expense : expenses) {
+                    if (expense.parties.contains(self)) {
+                        expense.parties.remove(self);
+                    } else {
+                        expense.parties.remove(recipient);
+                    }
+                    if (expense.parties.size() == 0) {
+                        expense.destroy();
+                    }
+                }
                 dialog.dismiss();
                 finish();
             }

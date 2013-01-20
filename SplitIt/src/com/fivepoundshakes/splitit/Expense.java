@@ -8,16 +8,18 @@ public class Expense extends StackMobModel implements Comparable<Expense>{
 
     protected User       owner;
     protected List<User> parties;
+    protected int        size;
     protected String     vendor;
     protected int        amount; // in cents
     protected String     description;
     protected int        createddate;
     
-    public Expense(User owner, List<User> parties, String vendor, int amount,
-            String description) {
+    public Expense(User owner, List<User> parties, int size, String vendor,
+            int amount, String description) {
         super(Expense.class);
         this.owner       = owner;
         this.parties     = parties;
+        this.size        = size;
         this.vendor      = vendor;
         this.amount      = amount;
         this.description = description;
@@ -39,6 +41,6 @@ public class Expense extends StackMobModel implements Comparable<Expense>{
     }
 
     public int getSplitAmount() {
-        return Math.round(amount / ((float) parties.size() + 1));
+        return Math.round(amount / (float) size);
     }
 }

@@ -108,8 +108,8 @@ public class ExpenseFormActivity extends Activity {
                 
                 parties.add(self);
                 
-                Expense e = new Expense(self, parties, vendor,
-                        amount, description);
+                Expense e = new Expense(self, parties, parties.size() + 1,
+                        vendor, amount, description);
                 e.save();
                 
                 finish();
