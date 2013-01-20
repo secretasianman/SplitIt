@@ -21,7 +21,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="10dp"
-        android:text="Pirate Rob"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white" />
 
@@ -59,10 +58,10 @@
         android:textColor="@color/green" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/cashImageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignLeft="@+id/venmoImageButton"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
         android:src="@drawable/cashthin" />
@@ -71,24 +70,23 @@
         android:id="@+id/amountLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vendorLabel"
+        android:layout_alignLeft="@+id/recipientLabel"
         android:layout_centerVertical="true"
         android:text="@string/amount"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/faded_grey" />
-    
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/venmoImageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView2"
+        android:layout_above="@+id/cashImageButton"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="20dp"
         android:src="@drawable/venmothin" />
-    
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/menuBackground"
@@ -96,41 +94,41 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/resolve_expense"
-        android:textSize="24sp"
-        android:textColor="@color/green" />
+        android:textColor="@color/green"
+        android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/vendorLabel"
+        android:id="@+id/recipientLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText01"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/amountInput"
+        android:layout_below="@+id/title"
         android:layout_marginTop="10dp"
         android:text="@string/recipient"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/faded_grey" />
 
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/recipientText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vendorLabel"
+        android:layout_below="@+id/recipientLabel"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="8dp"
-        android:text="Jean Kim"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/dark_grey" />
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/amountInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextView01"
+        android:layout_alignLeft="@+id/recipientText"
         android:layout_below="@+id/amountLabel"
         android:layout_marginRight="20dp"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="numberDecimal" >
 
         <requestFocus />
     </EditText>

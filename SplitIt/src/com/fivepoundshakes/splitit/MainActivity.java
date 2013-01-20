@@ -108,6 +108,7 @@ public class MainActivity extends Activity {
                 Intent i = new Intent(getApplicationContext(),
                         ExpenseFormActivity.class);
                 i.putExtra("serial", serial);
+                i.putExtra("displayname", self.first_name + " " + self.last_name);
                 startActivity(i);
             }
         });

@@ -37,7 +37,7 @@ public class ListEntryAdapter extends ArrayAdapter<ListEntry> {
         QuickContactBadge picture = (QuickContactBadge) v.findViewById(R.id.picture);
         
         name.setText(item.user.first_name + " " + item.user.last_name);
-        amount.setText(CurrencyCreator.create(item.amount));
+        amount.setText(CurrencyCreator.toDollars(item.amount));
         //TODO set picture
         
         if (item.isPayment) {

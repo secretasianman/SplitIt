@@ -1,11 +1,6 @@
 package com.fivepoundshakes.splitit;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import com.stackmob.sdk.api.StackMobQuery;
-import com.stackmob.sdk.callback.StackMobQueryCallback;
-import com.stackmob.sdk.exception.StackMobException;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,31 +9,40 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ExpenseFormActivity extends Activity {
+import com.stackmob.sdk.api.StackMobQuery;
+import com.stackmob.sdk.callback.StackMobQueryCallback;
+import com.stackmob.sdk.exception.StackMobException;
+
+public class PaymentFormActivity extends Activity {
 
     private User self;
     private String serial;
     private String displayname;
+    private String recipient;
+    private int amount;
 
-    private TextView name;
-    private Button   newButton;
-    private Button   paymentsButton;
-    private Button   chargesButton;
-    private EditText vendorInput;
-    private EditText amountInput;
-    private EditText descriptionInput;
-    private Button   submitButton;
+    private TextView  name;
+    private Button    newButton;
+    private Button    paymentsButton;
+    private Button    chargesButton;
+    private TextView  recipientText;
+    private EditText  amountInput;
+    private ImageView cashButton;
+    private ImageView venmoButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expenseform);
+        setContentView(R.layout.activity_paymentform);
         
         Intent i = getIntent();
-        serial = (String) i.getExtras().get("serial");
-        displayname = (String) i.getExtras().get("displayname");
+        serial = i.getExtras().getString("serial");
+        displayname = i.getExtras().getString("displayname");
+        recipient = i.getExtras().getString("recipient");
+        amount = i.getExtras().getInt("amount", 0);
         getUser();
         
         initViews();
@@ -70,42 +74,34 @@ public class ExpenseFormActivity extends Activity {
      * Initializes fields to their respective Views.
      */
     private void initViews() {
-        name             = (TextView) findViewById(R.id.name);
-        newButton        = (Button)   findViewById(R.id.newButton);
-        paymentsButton   = (Button)   findViewById(R.id.paymentsButton);
-        chargesButton    = (Button)   findViewById(R.id.chargesButton);
-        vendorInput      = (EditText) findViewById(R.id.vendorInput);
-        amountInput      = (EditText) findViewById(R.id.amountInput);
-        descriptionInput = (EditText) findViewById(R.id.descriptionInput);
-        submitButton     = (Button)   findViewById(R.id.submitButton);
+        name             = (TextView)  findViewById(R.id.name);
+        newButton        = (Button)    findViewById(R.id.newButton);
+        paymentsButton   = (Button)    findViewById(R.id.paymentsButton);
+        chargesButton    = (Button)    findViewById(R.id.chargesButton);
+        recipientText    = (TextView)  findViewById(R.id.recipientText);
+        amountInput      = (EditText)  findViewById(R.id.amountInput);
+        cashButton       = (ImageView) findViewById(R.id.cashImageButton);
+        venmoButton      = (ImageView) findViewById(R.id.venmoImageButton);
         
         name.setText(displayname);
+        recipientText.setText(recipient);
+        amountInput.setText(CurrencyCreator.toDecimal(amount));
     }
     
     /**
      * Initializes button handlers.
      */
     private void initHandlers() {
-        submitButton.setOnClickListener(new OnClickListener() {
+        // TODO handlers for cash and venmo buttons
+        
+        newButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String vendor      = vendorInput.getText().toString();
-                int    amount      = toCents(amountInput.getText().toString());
-                String description = descriptionInput.getText().toString();
-                
-                if (amount <= 0) {
-                    System.out.println(amount);
-                    Toaster.show(getApplicationContext(), "Invalid amount!");
-                    return;
-                }
-                
-                List<User> parties = new ArrayList<User>();
-                parties.add(self);
-                
-                Expense e = new Expense(self, parties, vendor,
-                        amount, description);
-                e.save();
-                
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), 
+                        ExpenseFormActivity.class);
+                i.putExtra("serial", serial);
+                i.putExtra("displayname", displayname);
+                startActivity(i);
                 finish();
             }
         });
@@ -134,18 +130,5 @@ public class ExpenseFormActivity extends Activity {
             }
         });
     }
-    
-    private int toCents(String amount) {
-        try {
-            return Integer.parseInt(amount);
-        } catch (NumberFormatException e) { }
-        
-        try {
-            String[] nums = amount.split("\\.");
-            return Integer.parseInt(nums[0]) * 100 +
-                    Integer.parseInt(nums[1].substring(0, 2));
-        } catch (Exception e) { }
 
-        return 0; // error
-    }
 }
