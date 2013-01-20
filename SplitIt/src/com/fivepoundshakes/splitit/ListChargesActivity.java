@@ -148,6 +148,8 @@ public class ListChargesActivity extends ListActivity {
 
                     @Override
                     public void success(List<Expense> expenses) {
+                        System.out.println("qc" + expenses.size());
+                        System.out.println(expenses.get(0));
                         updateCharges(expenses);
                     }
                 });
@@ -164,6 +166,7 @@ public class ListChargesActivity extends ListActivity {
 
                     @Override
                     public void success(List<Expense> expenses) {
+                        System.out.println("qp" + expenses.size());
                         updatePayments(expenses);
                     }
                 });
@@ -228,16 +231,19 @@ public class ListChargesActivity extends ListActivity {
                 new HashMap<User, LinkedList<Expense>>();
         for (Expense expense : expenses) {
             for (User user : expense.parties) {
+                System.out.println(user);
                 LinkedList<Expense> list;
                 if (individual.containsKey(user)) {
                     list = individual.get(user);
                 } else {
                     list = new LinkedList<Expense>();
-                    individual.put(user, list);
                 }
                 list.add(expense);
+                individual.put(user, list);
+                System.out.println(user);
             }
         }
+        System.out.println("ind" + individual.size());
         
         charges.clear();
         for (Map.Entry<User, LinkedList<Expense>> entry : individual.entrySet()) {
