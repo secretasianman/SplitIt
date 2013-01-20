@@ -1,6 +1,7 @@
 Users
 =====
-username (phone number or similar)
+user_id [pk] (should be equal to username)
+username (serial number)
 first_name
 last_name
 phone_number
@@ -9,7 +10,7 @@ venmo_id
 
 Expenses
 ============
-expense_id
+expense_id [pk]
 owner [fk]
 parties [fk - one to many]
 amount
