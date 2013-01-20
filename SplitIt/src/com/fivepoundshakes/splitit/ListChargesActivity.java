@@ -38,7 +38,6 @@ public class ListChargesActivity extends ListActivity {
     private Button   chargesButton;
     
     private List<ListEntry>  aggregated;
-    private ListView         lv;
     private ListEntryAdapter adapter;
     private LayoutInflater   vi;
     
@@ -91,7 +90,6 @@ public class ListChargesActivity extends ListActivity {
         newButton        = (Button)   findViewById(R.id.newButton);
         paymentsButton   = (Button)   findViewById(R.id.paymentsButton);
         chargesButton    = (Button)   findViewById(R.id.chargesButton);
-        lv               = (ListView) findViewById(android.R.id.list);
         
         name.setText(displayname);
         chargesButton.setBackgroundResource(R.drawable.activebutton);
@@ -144,7 +142,6 @@ public class ListChargesActivity extends ListActivity {
     }
     
     private void updateList(List<Expense> expenses) {
-        //TODO fuck shit fuck!!!!
         HashMap<User, LinkedList<Expense>> individual =
                 new HashMap<User, LinkedList<Expense>>();
         for (Expense expense : expenses) {
@@ -166,7 +163,7 @@ public class ListChargesActivity extends ListActivity {
             LinkedList<Expense> list = entry.getValue();
             int total = 0;
             for (Expense e : list) {
-                total += Math.round(e.amount / ((float) e.parties.size() + 1));
+                total += e.getSplitAmount();
             }
             aggregated.add(new ListEntry(user, total, false));
         }

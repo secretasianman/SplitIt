@@ -94,8 +94,8 @@ public class MainActivity extends Activity {
      */
     private void initViews() {
         addExpenseButton = (Button) findViewById(R.id.addExpenseButton);
-        addGroupButton   = (Button) findViewById(R.id.addGroupButton);
-        viewContactsButton = (Button) findViewById(R.id.viewContacts);
+//        addGroupButton   = (Button) findViewById(R.id.addGroupButton);
+//        viewContactsButton = (Button) findViewById(R.id.viewContacts);
     }
     
     /**

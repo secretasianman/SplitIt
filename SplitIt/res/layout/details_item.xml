@@ -6,29 +6,29 @@
     android:gravity="top" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/amountText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:gravity="right"
         android:padding="20dp"
         android:paddingTop="8dp"
         android:text="$14.50"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/money_green" 
-        android:gravity="right"/>
+        android:textColor="@color/money_green" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/vendorText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:gravity="left"
         android:padding="20dp"
         android:paddingTop="8dp"
         android:text="Five pound shakes"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/dark_grey" 
-        android:gravity="left"/>
-        
+        android:textColor="@color/dark_grey" />
+
 </RelativeLayout>

@@ -30,5 +30,6 @@
     <string name="contacts">View Contacts</string>
     <string name="title_activity_contacts">ContactsActivity</string>
     <string name="splitwith">Split It With</string>
+    <string name="pay_now">PAY NOW</string>
 
 </resources>

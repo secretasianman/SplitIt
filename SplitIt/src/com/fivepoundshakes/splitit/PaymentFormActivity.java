@@ -78,10 +78,10 @@ public class PaymentFormActivity extends Activity {
         newButton        = (Button)    findViewById(R.id.newButton);
         paymentsButton   = (Button)    findViewById(R.id.paymentsButton);
         chargesButton    = (Button)    findViewById(R.id.chargesButton);
-        recipientText    = (TextView)  findViewById(R.id.recipientText);
+//        recipientText    = (TextView)  findViewById(R.id.recipientText);
         amountInput      = (EditText)  findViewById(R.id.amountInput);
-        cashButton       = (ImageView) findViewById(R.id.cashImageButton);
-        venmoButton      = (ImageView) findViewById(R.id.venmoImageButton);
+//        cashButton       = (ImageView) findViewById(R.id.cashImageButton);
+//        venmoButton      = (ImageView) findViewById(R.id.venmoImageButton);
         
         name.setText(displayname);
         recipientText.setText(recipient);

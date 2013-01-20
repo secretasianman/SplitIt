@@ -37,7 +37,6 @@ public class ListPaymentsActivity extends ListActivity {
     private Button   chargesButton;
     
     private List<ListEntry>  aggregated;
-    private ListView         lv;
     private ListEntryAdapter adapter;
     private LayoutInflater   vi;
     
@@ -90,7 +89,6 @@ public class ListPaymentsActivity extends ListActivity {
         newButton        = (Button)   findViewById(R.id.newButton);
         paymentsButton   = (Button)   findViewById(R.id.paymentsButton);
         chargesButton    = (Button)   findViewById(R.id.chargesButton);
-        lv               = (ListView) findViewById(android.R.id.list);
         
         name.setText(displayname);
         paymentsButton.setBackgroundResource(R.drawable.activebutton);
@@ -163,7 +161,7 @@ public class ListPaymentsActivity extends ListActivity {
             LinkedList<Expense> list = entry.getValue();
             int total = 0;
             for (Expense e : list) {
-                total += Math.round(e.amount / ((float) e.parties.size() + 1));
+                total += e.getSplitAmount();
             }
             aggregated.add(new ListEntry(user, total, true));
         }
@@ -177,4 +175,19 @@ public class ListPaymentsActivity extends ListActivity {
             adapter.notifyDataSetChanged();
         };
     };
+    
+    @Override
+    protected void onListItemClick(ListView l, View v, int pos, long id) {
+        super.onListItemClick(l, v, pos, id);
+        ListEntry clicked = aggregated.get(pos);
+        User user = clicked.user;
+        Intent i = new Intent(getApplicationContext(), UserDetailsActivity.class);
+        i.putExtra("serial", serial);
+        i.putExtra("displayname", displayname);
+        i.putExtra("recipient", user.first_name + " " + user.last_name);
+        i.putExtra("recipientserial", user.username);
+        i.putExtra("amount", clicked.amount);
+        i.putExtra("ispayment", clicked.isPayment);
+        startActivity(i);
+    }
 }

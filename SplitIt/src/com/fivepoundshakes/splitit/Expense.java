@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.stackmob.sdk.model.StackMobModel;
 
-public class Expense extends StackMobModel {
+public class Expense extends StackMobModel implements Comparable<Expense>{
 
     protected User       owner;
     protected List<User> parties;
     protected String     vendor;
     protected int        amount; // in cents
     protected String     description;
+    protected int        createddate;
     
     public Expense(User owner, List<User> parties, String vendor, int amount,
             String description) {
@@ -30,5 +31,14 @@ public class Expense extends StackMobModel {
             s += user + ", ";
         }
         return s.substring(0, s.length() - 2);
+    }
+    
+    @Override
+    public int compareTo(Expense e) {
+        return e.createddate - createddate;
+    }
+
+    public int getSplitAmount() {
+        return Math.round(amount / ((float) parties.size() + 1));
     }
 }

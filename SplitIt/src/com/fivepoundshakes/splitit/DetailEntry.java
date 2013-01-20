@@ -1,28 +1,27 @@
 package com.fivepoundshakes.splitit;
 
-public class ListEntry {
+public class DetailEntry {
 
-    protected User    user;
+    protected String  vendor;
     protected int     amount;
     protected int     date;
     protected boolean isPayment; // else is charge
     
-    public ListEntry(User user, int amount, boolean isPayment) {
-        this.user      = user;
+    public DetailEntry(String vendor, int amount, boolean isPayment) {
+        this.vendor    = vendor;
         this.amount    = amount;
         this.isPayment = isPayment;
     }
     
-    public ListEntry(User user, int amount, int date, boolean isPayment) {
-        this.user      = user;
+    public DetailEntry(String vendor, int amount, int date, boolean isPayment) {
+        this.vendor    = vendor;
         this.amount    = amount;
         this.date      = date;
         this.isPayment = isPayment;
     }
     
     public String toString() {
-        return user.first_name + " " + user.last_name + ": " + amount + ", " +
-                date + ", " + isPayment;
+        return vendor + ": " + amount + ", " + date + ", " + isPayment;
     }
     
 }
