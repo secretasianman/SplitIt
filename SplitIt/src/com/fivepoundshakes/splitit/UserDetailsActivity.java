@@ -168,6 +168,8 @@ public class UserDetailsActivity extends ListActivity {
     }
     
     private void refresh() {
+        transactions.clear();
+        
         // First query where you are the owner and the other person is a participant
         Expense.query(Expense.class,
                 new StackMobQuery().fieldIsEqualTo("owner", serial)
@@ -181,7 +183,6 @@ public class UserDetailsActivity extends ListActivity {
 
                     @Override
                     public void success(List<Expense> expenses) {
-                        transactions.clear();
                         updateList(expenses);
                     }
                 });
