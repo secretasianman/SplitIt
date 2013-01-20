@@ -21,7 +21,7 @@ import com.stackmob.sdk.exception.StackMobException;
 
 public class MainActivity extends Activity {
     enum RequestCode {
-        VENMO
+        VENMO, NEWUSER
     };
     
     private final String VENMO_APP_ID = "1219";
@@ -184,8 +184,12 @@ public class MainActivity extends Activity {
                 else if(resultCode == RESULT_CANCELED) {
                     //The user cancelled the payment
                 }
-            break;
-            }           
+                break;
+            }
+            case NEWUSER: {
+                getUser();
+                break;
+            }
         }
     }
     
@@ -196,7 +200,7 @@ public class MainActivity extends Activity {
         Intent i = new Intent(getApplicationContext(), NewUserActivity.class);
         i.putExtra("serial", serial);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getApplicationContext().startActivity(i);
+        startActivityForResult(i, RequestCode.NEWUSER.ordinal());
     }
 
 }
