@@ -41,6 +41,8 @@ public class ListPaymentsActivity extends ListActivity {
     private Map<User, ListEntry> charges;
     private int count = 0;
     
+    private List<Payment> pending;
+    
     private List<ListEntry>  aggregated;
     private ListEntryAdapter adapter;
     private LayoutInflater   vi;
@@ -163,6 +165,27 @@ public class ListPaymentsActivity extends ListActivity {
                         updateCharges(expenses);
                     }
                 });
+        
+        // Get pending
+        Payment.query(Payment.class,
+                new StackMobQuery().fieldIsEqualTo("completed", "false")
+                    .fieldIsEqualTo("payor", serial),
+                StackMobOptions.depthOf(1),
+                new StackMobQueryCallback<Payment>() {
+                    @Override
+                    public void failure(StackMobException e) {
+                        Toaster.show(getApplicationContext(), "Payment lookup error - fail");
+                    }
+
+                    @Override
+                    public void success(List<Payment> payments) {
+                        pending = payments;
+                        count++;
+                        if (count == 3) {
+                            combineLists();
+                        }
+                    }
+                });
     }
     
     private void updatePayments(List<Expense> expenses) {
@@ -193,7 +216,7 @@ public class ListPaymentsActivity extends ListActivity {
         System.out.println("P"+payments.size());
         
         count++;
-        if (count == 2) {
+        if (count == 3) {
             combineLists();
         }
     }
@@ -227,7 +250,7 @@ public class ListPaymentsActivity extends ListActivity {
         System.out.println("C"+charges.size());
         
         count++;
-        if (count == 2) {
+        if (count == 3) {
             combineLists();
         }
     }
@@ -246,6 +269,9 @@ public class ListPaymentsActivity extends ListActivity {
             } else {
                 aggregated.add(e);
             }
+        }
+        for (Payment payment : pending) {
+            aggregated.add(new ListEntry(payment.payee, payment.amount, true, true));
         }
         
         count = 0;

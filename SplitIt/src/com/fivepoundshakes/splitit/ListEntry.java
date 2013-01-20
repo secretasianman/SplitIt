@@ -6,11 +6,19 @@ public class ListEntry {
     protected int     amount;
     protected int     date;
     protected boolean isPayment; // else is charge
+    protected boolean pending;
     
     public ListEntry(User user, int amount, boolean isPayment) {
         this.user      = user;
         this.amount    = amount;
         this.isPayment = isPayment;
+    }
+    
+    public ListEntry(User user, int amount, boolean isPayment, boolean pending) {
+        this.user      = user;
+        this.amount    = amount;
+        this.isPayment = isPayment;
+        this.pending   = pending;
     }
     
     public ListEntry(User user, int amount, int date, boolean isPayment) {
