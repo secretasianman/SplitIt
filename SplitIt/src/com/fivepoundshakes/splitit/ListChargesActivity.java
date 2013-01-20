@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +42,8 @@ public class ListChargesActivity extends ListActivity {
     private Map<User, ListEntry> payments;
     private Map<User, ListEntry> charges;
     private int count = 0;
+    
+    private List<Payment> pending;
     
     private List<ListEntry>  aggregated;
     private ListEntryAdapter adapter;
@@ -163,6 +167,27 @@ public class ListChargesActivity extends ListActivity {
                         updatePayments(expenses);
                     }
                 });
+        
+        // Get pending
+        Payment.query(Payment.class,
+                new StackMobQuery().fieldIsEqualTo("completed", "false")
+                    .fieldIsEqualTo("payee", serial),
+                StackMobOptions.depthOf(1),
+                new StackMobQueryCallback<Payment>() {
+                    @Override
+                    public void failure(StackMobException e) {
+                        Toaster.show(getApplicationContext(), "Payment lookup error - fail");
+                    }
+
+                    @Override
+                    public void success(List<Payment> payments) {
+                        pending = payments;
+                        count++;
+                        if (count == 3) {
+                            combineLists();
+                        }
+                    }
+                });
     }
     
     private void updatePayments(List<Expense> expenses) {
@@ -193,7 +218,7 @@ public class ListChargesActivity extends ListActivity {
         System.out.println("P"+payments.size());
         
         count++;
-        if (count == 2) {
+        if (count == 3) {
             combineLists();
         }
     }
@@ -227,7 +252,7 @@ public class ListChargesActivity extends ListActivity {
         System.out.println("C"+charges.size());
         
         count++;
-        if (count == 2) {
+        if (count == 3) {
             combineLists();
         }
     }
@@ -246,6 +271,10 @@ public class ListChargesActivity extends ListActivity {
             } else {
                 aggregated.add(e);
             }
+        }
+        
+        for (Payment payment : pending) {
+            aggregated.add(new ListEntry(payment.payor, payment.amount, false, true));
         }
         
         count = 0;
@@ -267,8 +296,13 @@ public class ListChargesActivity extends ListActivity {
     
     @Override
     protected void onListItemClick(ListView l, View v, int pos, long id) {
-        super.onListItemClick(l, v, pos, id);
         ListEntry clicked = aggregated.get(pos);
+        if (clicked.pending) {
+            confirmPending(clicked);
+            return;
+        }
+        
+        super.onListItemClick(l, v, pos, id);
         User user = clicked.user;
         Intent i = new Intent(getApplicationContext(), UserDetailsActivity.class);
         i.putExtra("serial", serial);
@@ -278,5 +312,35 @@ public class ListChargesActivity extends ListActivity {
         i.putExtra("amount", clicked.amount);
         i.putExtra("ispayment", clicked.isPayment);
         startActivity(i);
+    }
+    
+    private void confirmPending(final ListEntry entry) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Payment");
+        builder.setMessage("Did you receive " +
+                CurrencyCreator.toDollars(entry.amount) + " from " +
+                entry.user.first_name + " " + entry.user.last_name + "?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (Payment payment : pending) {
+                    if (entry.amount == payment.amount &&
+                            entry.user.equals(payment.payor)) {
+                        payment.completed = true;
+                        payment.save();
+                        refresh();
+                        dialog.dismiss();
+                        return;
+                    }
+                }
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 }

@@ -270,6 +270,7 @@ public class ListPaymentsActivity extends ListActivity {
                 aggregated.add(e);
             }
         }
+        
         for (Payment payment : pending) {
             aggregated.add(new ListEntry(payment.payee, payment.amount, true, true));
         }
@@ -293,8 +294,10 @@ public class ListPaymentsActivity extends ListActivity {
     
     @Override
     protected void onListItemClick(ListView l, View v, int pos, long id) {
-        super.onListItemClick(l, v, pos, id);
         ListEntry clicked = aggregated.get(pos);
+        if (clicked.pending) { return; }
+        
+        super.onListItemClick(l, v, pos, id);
         User user = clicked.user;
         Intent i = new Intent(getApplicationContext(), UserDetailsActivity.class);
         i.putExtra("serial", serial);
