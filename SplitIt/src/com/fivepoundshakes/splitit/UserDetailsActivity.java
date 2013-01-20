@@ -300,9 +300,8 @@ public class UserDetailsActivity extends ListActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                int amount = CurrencyCreator.toCents(amountInput.getText().toString());
 
-                venmoInit(recipient.phone_number,amount+"",VENMO_TAG);
+                venmoInit(recipient.phone_number,amountInput.getText().toString(),VENMO_TAG);
                 Toaster.show(getApplicationContext(), "venmo!");
             }
         });
