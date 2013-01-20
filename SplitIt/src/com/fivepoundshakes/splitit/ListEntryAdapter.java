@@ -12,23 +12,25 @@ import android.widget.TextView;
 
 public class ListEntryAdapter extends ArrayAdapter<ListEntry> {
 
+    protected Context         context;
     protected List<ListEntry> items;
     protected LayoutInflater  vi;
     
     public ListEntryAdapter(Context context, List<ListEntry> objects,
             LayoutInflater vi) {
         super(context, 0, objects);
-        this.items = objects;
-        this.vi    = vi;
+        this.context = context;
+        this.items   = objects;
+        this.vi      = vi;
     }
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         System.out.println("yeap");
-        View v = convertView;
-        if (v == null) {
-            v = vi.inflate(R.layout.unpaid_split, null);
-        }
+        View v = inflater.inflate(R.layout.unpaid_split, null);
+        
         ListEntry         item    = items.get(position);
         TextView          name    = (TextView) v.findViewById(R.id.name);
         TextView          amount  = (TextView) v.findViewById(R.id.amount);
@@ -37,6 +39,12 @@ public class ListEntryAdapter extends ArrayAdapter<ListEntry> {
         name.setText(item.user.first_name + " " + item.user.last_name);
         amount.setText(CurrencyCreator.create(item.amount));
         //TODO set picture
+        
+        if (item.isPayment) {
+            amount.setTextColor(parent.getResources().getColor(R.color.money_red));
+        } else {
+            amount.setTextColor(parent.getResources().getColor(R.color.money_green));
+        }
         
         return v;
     }

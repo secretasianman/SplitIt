@@ -27,6 +27,6 @@
     <string name="pending">pending</string>
     <string name="contacts">View Contacts</string>
     <string name="title_activity_contacts">ContactsActivity</string>
-    <string name="splitwith">Split It with</string>
+    <string name="splitwith">Split It With</string>
 
 </resources>

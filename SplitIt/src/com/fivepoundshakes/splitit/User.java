@@ -25,4 +25,28 @@ public class User extends StackMobModel {
         return username + ": " + first_name + " " + last_name;
     }
     
+    @Override
+    public boolean equals(Object o) {
+        System.out.println("EQUALS!!!!!");
+        if (o instanceof User) {
+            User u = (User) o;
+            System.out.println(username.equals(u.username) &&
+                    first_name.equals(u.first_name) &&
+                    last_name.equals(u.last_name) &&
+                    phone_number.equals(u.phone_number) &&
+                    venmo_id.equals(u.venmo_id));
+            return username.equals(u.username) &&
+                    first_name.equals(u.first_name) &&
+                    last_name.equals(u.last_name) &&
+                    phone_number.equals(u.phone_number) &&
+                    venmo_id.equals(u.venmo_id);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
+    
 }
