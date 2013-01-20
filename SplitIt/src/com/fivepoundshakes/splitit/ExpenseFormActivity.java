@@ -106,7 +106,6 @@ public class ExpenseFormActivity extends Activity {
                     Toaster.show(getApplicationContext(), "Invalid amount!");
                     return;
                 }
-
                 Expense e = new Expense(self, parties, parties.size() + 1,
                         vendor, amount, description);
                 e.save();
@@ -142,6 +141,7 @@ public class ExpenseFormActivity extends Activity {
         splitWithBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
+            	parties.clear();
                 Intent i = new Intent(getApplicationContext(), 
                         ContactsActivity.class);
                 startActivityForResult(i, 1);
