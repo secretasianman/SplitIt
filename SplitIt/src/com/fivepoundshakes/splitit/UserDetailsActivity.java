@@ -2,12 +2,11 @@ package com.fivepoundshakes.splitit;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -32,7 +32,8 @@ public class UserDetailsActivity extends ListActivity {
     private String  serial;
     private User    self;
     private String  displayname;
-    private String  recipient;
+    private User    recipient;
+    private String  recipientname;
     private String  recipientserial;
     private int     amount;
     private boolean ispayment;
@@ -59,11 +60,12 @@ public class UserDetailsActivity extends ListActivity {
         Intent i = getIntent();
         serial          = i.getExtras().getString("serial");
         displayname     = i.getExtras().getString("displayname");
-        recipient       = i.getExtras().getString("recipient");
+        recipientname   = i.getExtras().getString("recipient");
         recipientserial = i.getExtras().getString("recipientserial");
         amount          = i.getExtras().getInt("amount", 0);
         ispayment       = i.getExtras().getBoolean("ispayment");
         getUser();
+        getRecipient();
         
         transactions = new LinkedList<DetailEntry>();
         adapter = new DetailEntryAdapter(this, transactions, vi);
@@ -95,6 +97,26 @@ public class UserDetailsActivity extends ListActivity {
         });
     }
     
+    private void getRecipient() {
+        User.query(User.class,
+                new StackMobQuery().fieldIsEqualTo("username", recipientserial),
+                new StackMobQueryCallback<User>() {
+            @Override
+            public void failure(StackMobException e) {
+                Toaster.show(getApplicationContext(), "User lookup error - fail");
+            }
+
+            @Override
+            public void success(List<User> users) {
+                if (users.size() == 0) {
+                    Toaster.show(getApplicationContext(), "User lookup error - no results");
+                }
+                recipient = users.get(0);
+                System.out.println("got recipient");
+            }
+        });
+    }
+    
     /**
      * Initializes fields to their respective Views.
      */
@@ -109,7 +131,7 @@ public class UserDetailsActivity extends ListActivity {
         payButton      = (Button)            findViewById(R.id.payButton);
         
         name.setText(displayname);
-        nameText.setText(recipient);
+        nameText.setText(recipientname);
         amountText.setText(CurrencyCreator.toDollars(amount));
         if (ispayment) {
             amountText.setTextColor(getResources().getColor(R.color.money_red));
@@ -168,7 +190,7 @@ public class UserDetailsActivity extends ListActivity {
         payButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toaster.show(getApplicationContext(), "Pay!!");
+                showPaymentDialog();
             }
         });
     }
@@ -244,4 +266,43 @@ public class UserDetailsActivity extends ListActivity {
             adapter.notifyDataSetChanged();
         };
     };
+    
+    private void showPaymentDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_paymentform, null);
+        
+        TextView  recipientText     = (TextView)  view.findViewById(R.id.recipientText);
+        final EditText  amountInput = (EditText)  view.findViewById(R.id.amountInput);
+        ImageView venmoImage        = (ImageView) view.findViewById(R.id.venmoImage);
+        ImageView cashImage         = (ImageView) view.findViewById(R.id.cashImage);
+        
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
+        
+        recipientText.setText(recipientname);
+        amountInput.setText(CurrencyCreator.toDecimal(amount));
+        venmoImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Toaster.show(getApplicationContext(), "venmo!");
+            }
+        });
+        cashImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                
+                int amount = CurrencyCreator.toCents(amountInput.getText().toString());
+                Payment payment = new Payment(self, recipient, amount, false);
+                payment.save();
+                Toaster.show(getApplicationContext(),
+                        "Transaction complete. Go pay " + recipientname +
+                        " " + CurrencyCreator.toDollars(amount) + "!");
+                dialog.dismiss();
+                finish();
+            }
+        });
+    }
 }

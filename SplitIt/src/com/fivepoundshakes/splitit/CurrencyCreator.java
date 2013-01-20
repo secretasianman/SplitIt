@@ -15,4 +15,18 @@ public class CurrencyCreator {
         nf2.setMinimumIntegerDigits(2);
         return nf1.format(cents / 100) + "." + nf2.format(cents % 100);
     }
+    
+    public static int toCents(String amount) {
+        try {
+            return Integer.parseInt(amount);
+        } catch (NumberFormatException e) { }
+        
+        try {
+            String[] nums = amount.split("\\.");
+            return Integer.parseInt(nums[0]) * 100 +
+                    Integer.parseInt(nums[1].substring(0, 2));
+        } catch (Exception e) { }
+
+        return 0; // error
+    }
 }

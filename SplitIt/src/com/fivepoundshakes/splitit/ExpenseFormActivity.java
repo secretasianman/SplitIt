@@ -90,7 +90,7 @@ public class ExpenseFormActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String vendor      = vendorInput.getText().toString();
-                int    amount      = toCents(amountInput.getText().toString());
+                int    amount      = CurrencyCreator.toCents(amountInput.getText().toString());
                 String description = descriptionInput.getText().toString();
                 
                 if (amount <= 0) {
@@ -134,18 +134,5 @@ public class ExpenseFormActivity extends Activity {
             }
         });
     }
-    
-    private int toCents(String amount) {
-        try {
-            return Integer.parseInt(amount);
-        } catch (NumberFormatException e) { }
-        
-        try {
-            String[] nums = amount.split("\\.");
-            return Integer.parseInt(nums[0]) * 100 +
-                    Integer.parseInt(nums[1].substring(0, 2));
-        } catch (Exception e) { }
-
-        return 0; // error
-    }
+   
 }
