@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +57,7 @@ public class ListPaymentsActivity extends ListActivity {
         setListAdapter(adapter);
         
         initViews();
+        initHandlers();
         
         refresh();
     }
@@ -91,6 +94,35 @@ public class ListPaymentsActivity extends ListActivity {
         
         name.setText(displayname);
         paymentsButton.setBackgroundResource(R.drawable.activebutton);
+    }
+    
+    /**
+     * Initializes button handlers.
+     */
+    private void initHandlers() {
+        chargesButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), 
+                        ListChargesActivity.class);
+                i.putExtra("serial", serial);
+                i.putExtra("displayname", displayname);
+                startActivity(i);
+                finish();
+            }
+        });
+        
+        newButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), 
+                        ExpenseFormActivity.class);
+                i.putExtra("serial", serial);
+                i.putExtra("displayname", displayname);
+                startActivity(i);
+                finish();
+            }
+        });
     }
     
     private void refresh() {
