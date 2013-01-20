@@ -8,12 +8,12 @@
     <Button
         android:id="@+id/addExpenseButton"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/logo"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:background="@color/green"
         android:text="@string/add_expense"
         android:textColor="@color/white" />
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="100dp"
         android:paddingRight="8dp"
         android:src="@drawable/noshadlogo" />
 
