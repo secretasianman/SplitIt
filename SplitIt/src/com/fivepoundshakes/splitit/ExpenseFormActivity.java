@@ -186,8 +186,8 @@ public class ExpenseFormActivity extends Activity {
                                 if (result.size() > 0) {
                                     u = result.get(0);
                                 } else {
-                                    u = new User(null, firstName, lastName,
-                                            phoneNumber, null);
+                                    u = new User(String.valueOf(Math.random()),
+                                            firstName, lastName, phoneNumber, null);
                                     u.save();
                                 }
                                 parties.add(u);
