@@ -57,13 +57,7 @@
         android:clickable="true"
         android:text="@string/charge"
         android:textColor="@color/green" />
-
-    <QuickContactBadge
-        android:id="@+id/picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/newButton" />
+    
 
     <Button
         android:id="@+id/payButton"
@@ -110,5 +104,18 @@
         android:text="$25.00"
         android:textColor="@color/money_green"
         android:textSize="35sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/amountText"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newButton"
+        android:layout_marginRight="34dp"
+        android:layout_marginTop="0dp"
+        android:layout_toLeftOf="@+id/paymentsButton"
+        android:padding="0dp"
+        android:src="@drawable/defaultpic" />
 
 </RelativeLayout>
