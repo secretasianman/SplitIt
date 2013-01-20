@@ -112,12 +112,12 @@ public class MainActivity extends Activity {
             }
         });
         
-        // TEMP
+        // TODO TEMP
         addGroupButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),
-                        ListPaymentsActivity.class);
+                        ListChargesActivity.class);
                 i.putExtra("serial", serial);
                 i.putExtra("displayname", self.first_name + " " + self.last_name);
                 startActivity(i);

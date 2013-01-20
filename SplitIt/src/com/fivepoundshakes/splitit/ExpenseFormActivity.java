@@ -109,6 +109,30 @@ public class ExpenseFormActivity extends Activity {
                 finish();
             }
         });
+        
+        paymentsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), 
+                        ListPaymentsActivity.class);
+                i.putExtra("serial", serial);
+                i.putExtra("displayname", displayname);
+                startActivity(i);
+                finish();
+            }
+        });
+        
+        chargesButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), 
+                        ListChargesActivity.class);
+                i.putExtra("serial", serial);
+                i.putExtra("displayname", displayname);
+                startActivity(i);
+                finish();
+            }
+        });
     }
     
     private int toCents(String amount) {
