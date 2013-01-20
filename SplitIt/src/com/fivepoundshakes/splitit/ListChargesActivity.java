@@ -32,46 +32,46 @@ public class ListChargesActivity extends ListActivity {
     private String serial;
     private User   self;
     private String displayname;
-    
+
     private TextView name;
     private Button   newButton;
     private Button   paymentsButton;
     private Button   chargesButton;
     private TextView noResults;
-    
+
     private Map<User, ListEntry> payments;
     private Map<User, ListEntry> charges;
     private int count = 0;
-    
+
     private List<Payment> pending;
-    
+
     private List<ListEntry>  aggregated;
     private ListEntryAdapter adapter;
     private LayoutInflater   vi;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listaggregates);
         vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        
+
         Intent i = getIntent();
         serial = (String) i.getExtras().get("serial");
         displayname = (String) i.getExtras().get("displayname");
         getUser();
-        
+
         payments   = new HashMap<User, ListEntry>();
         charges    = new HashMap<User, ListEntry>();
         aggregated = new LinkedList<ListEntry>();
         adapter    = new ListEntryAdapter(this, aggregated, vi);
         setListAdapter(adapter);
-        
+
         initViews();
         initHandlers();
-        
+
         refresh();
     }
-    
+
     private void getUser() {
         User.query(User.class,
                 new StackMobQuery().fieldIsEqualTo("username", serial),
@@ -91,7 +91,7 @@ public class ListChargesActivity extends ListActivity {
             }
         });
     }
-    
+
     /**
      * Initializes fields to their respective Views.
      */
@@ -101,11 +101,11 @@ public class ListChargesActivity extends ListActivity {
         paymentsButton   = (Button)   findViewById(R.id.paymentsButton);
         chargesButton    = (Button)   findViewById(R.id.chargesButton);
         noResults        = (TextView) findViewById(R.id.noResults);
-        
+
         name.setText(displayname);
         chargesButton.setBackgroundResource(R.drawable.activebutton);
     }
-    
+
     /**
      * Initializes button handlers.
      */
@@ -121,7 +121,7 @@ public class ListChargesActivity extends ListActivity {
                 finish();
             }
         });
-        
+
         newButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -134,65 +134,65 @@ public class ListChargesActivity extends ListActivity {
             }
         });
     }
-    
+
     private void refresh() {
         // Get charges
         Expense.query(Expense.class,
                 new StackMobQuery().fieldIsEqualTo("owner", serial),
                 StackMobOptions.depthOf(1),
                 new StackMobQueryCallback<Expense>() {
-                    @Override
-                    public void failure(StackMobException e) {
-                        Toaster.show(getApplicationContext(), "Expense lookup error - fail");
-                    }
+            @Override
+            public void failure(StackMobException e) {
+                Toaster.show(getApplicationContext(), "Expense lookup error - fail");
+            }
 
-                    @Override
-                    public void success(List<Expense> expenses) {
-                        System.out.println("qc" + expenses.size());
-                        System.out.println(expenses.get(0));
-                        updateCharges(expenses);
-                    }
-                });
-        
+            @Override
+            public void success(List<Expense> expenses) {
+                System.out.println("qc" + expenses.size());
+                System.out.println(expenses.get(0));
+                updateCharges(expenses);
+            }
+        });
+
         // Get payments
         Expense.query(Expense.class,
                 new StackMobQuery().fieldIsIn("parties", Arrays.asList(serial)),
                 StackMobOptions.depthOf(1),
                 new StackMobQueryCallback<Expense>() {
-                    @Override
-                    public void failure(StackMobException e) {
-                        Toaster.show(getApplicationContext(), "Expense lookup error - fail");
-                    }
+            @Override
+            public void failure(StackMobException e) {
+                Toaster.show(getApplicationContext(), "Expense lookup error - fail");
+            }
 
-                    @Override
-                    public void success(List<Expense> expenses) {
-                        System.out.println("qp" + expenses.size());
-                        updatePayments(expenses);
-                    }
-                });
-        
+            @Override
+            public void success(List<Expense> expenses) {
+                System.out.println("qp" + expenses.size());
+                updatePayments(expenses);
+            }
+        });
+
         // Get pending
         Payment.query(Payment.class,
                 new StackMobQuery().fieldIsEqualTo("completed", "false")
-                    .fieldIsEqualTo("payee", serial),
+                .fieldIsEqualTo("payee", serial),
                 StackMobOptions.depthOf(1),
                 new StackMobQueryCallback<Payment>() {
-                    @Override
-                    public void failure(StackMobException e) {
-                        Toaster.show(getApplicationContext(), "Payment lookup error - fail");
-                    }
+            @Override
+            public void failure(StackMobException e) {
+                Toaster.show(getApplicationContext(), "Payment lookup error - fail");
+            }
 
-                    @Override
-                    public void success(List<Payment> payments) {
-                        pending = payments;
-                        count++;
-                        if (count == 3) {
-                            combineLists();
-                        }
-                    }
-                });
+            @Override
+            public void success(List<Payment> payments) {
+                pending = payments;
+                count++;
+                if (count == 3) {
+                    combineLists();
+                }
+            }
+        });
     }
-    
+
     private void updatePayments(List<Expense> expenses) {
         HashMap<User, LinkedList<Expense>> individual =
                 new HashMap<User, LinkedList<Expense>>();
@@ -207,7 +207,7 @@ public class ListChargesActivity extends ListActivity {
             }
             list.add(expense);
         }
-        
+
         payments.clear();
         for (Map.Entry<User, LinkedList<Expense>> entry : individual.entrySet()) {
             User user = entry.getKey();
@@ -219,13 +219,13 @@ public class ListChargesActivity extends ListActivity {
             payments.put(user, new ListEntry(user, total, true));
         }
         System.out.println("P"+payments.size());
-        
+
         count++;
         if (count == 3) {
             combineLists();
         }
     }
-    
+
     private void updateCharges(List<Expense> expenses) {
         HashMap<User, LinkedList<Expense>> individual =
                 new HashMap<User, LinkedList<Expense>>();
@@ -244,7 +244,7 @@ public class ListChargesActivity extends ListActivity {
             }
         }
         System.out.println("ind" + individual.size());
-        
+
         charges.clear();
         for (Map.Entry<User, LinkedList<Expense>> entry : individual.entrySet()) {
             User user = entry.getKey();
@@ -256,13 +256,13 @@ public class ListChargesActivity extends ListActivity {
             charges.put(user, new ListEntry(user, total, false));
         }
         System.out.println("C"+charges.size());
-        
+
         count++;
         if (count == 3) {
             combineLists();
         }
     }
-    
+
     private void combineLists() {
         aggregated.clear();
         for (Map.Entry<User, ListEntry> entry : charges.entrySet()) {
@@ -278,15 +278,15 @@ public class ListChargesActivity extends ListActivity {
                 aggregated.add(e);
             }
         }
-        
+
         for (Payment payment : pending) {
             aggregated.add(new ListEntry(payment.payor, payment.amount, false, true));
         }
-        
+
         count = 0;
         refreshHandler.sendEmptyMessage(0);
     }
-    
+
     @SuppressLint("HandlerLeak")
     Handler refreshHandler = new Handler() {
         @Override
@@ -299,7 +299,7 @@ public class ListChargesActivity extends ListActivity {
             }
         };
     };
-    
+
     @Override
     protected void onListItemClick(ListView l, View v, int pos, long id) {
         ListEntry clicked = aggregated.get(pos);
@@ -307,7 +307,7 @@ public class ListChargesActivity extends ListActivity {
             confirmPending(clicked);
             return;
         }
-        
+
         super.onListItemClick(l, v, pos, id);
         User user = clicked.user;
         Intent i = new Intent(getApplicationContext(), UserDetailsActivity.class);
@@ -319,7 +319,7 @@ public class ListChargesActivity extends ListActivity {
         i.putExtra("ispayment", clicked.isPayment);
         startActivity(i);
     }
-    
+
     private void confirmPending(final ListEntry entry) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm Payment");

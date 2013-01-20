@@ -30,10 +30,10 @@ import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
 public class UserDetailsActivity extends ListActivity {
-	enum RequestCode {
+    enum RequestCode {
         VENMO
     };
-    
+
     private final String VENMO_APP_ID = "1219";
     private final String VENMO_APP_SECRET = "Xzygvtey8MhKw9Fgf3PdNHMkxLZfU9pw";
     private final String VENMO_APP_NAME = "SplitIt";
@@ -48,7 +48,7 @@ public class UserDetailsActivity extends ListActivity {
     private String  recipientserial;
     private int     amount;
     private boolean ispayment;
-    
+
     private TextView          name;
     private Button            newButton;
     private Button            paymentsButton;
@@ -57,18 +57,18 @@ public class UserDetailsActivity extends ListActivity {
     private TextView          amountText;
     private QuickContactBadge picture;
     private Button            payButton;
-    
+
     private List<DetailEntry>  transactions;
     private List<Expense>      expenses;
     private DetailEntryAdapter adapter;
     private LayoutInflater     vi;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        
+
         Intent i = getIntent();
         serial          = i.getExtras().getString("serial");
         displayname     = i.getExtras().getString("displayname");
@@ -78,18 +78,18 @@ public class UserDetailsActivity extends ListActivity {
         ispayment       = i.getExtras().getBoolean("ispayment");
         getUser();
         getRecipient();
-        
+
         transactions = new LinkedList<DetailEntry>();
         expenses     = new LinkedList<Expense>();
         adapter      = new DetailEntryAdapter(this, transactions, vi);
         setListAdapter(adapter);
-        
+
         initViews();
         initHandlers();
-        
+
         refresh();
     }
-    
+
     private void getUser() {
         User.query(User.class,
                 new StackMobQuery().fieldIsEqualTo("username", serial),
@@ -109,7 +109,7 @@ public class UserDetailsActivity extends ListActivity {
             }
         });
     }
-    
+
     private void getRecipient() {
         User.query(User.class,
                 new StackMobQuery().fieldIsEqualTo("username", recipientserial),
@@ -129,7 +129,7 @@ public class UserDetailsActivity extends ListActivity {
             }
         });
     }
-    
+
     /**
      * Initializes fields to their respective Views.
      */
@@ -142,7 +142,7 @@ public class UserDetailsActivity extends ListActivity {
         amountText     = (TextView)          findViewById(R.id.amountText);
         picture        = (QuickContactBadge) findViewById(R.id.picture);
         payButton      = (Button)            findViewById(R.id.payButton);
-        
+
         name.setText(displayname);
         nameText.setText(recipientname);
         amountText.setText(CurrencyCreator.toDollars(amount));
@@ -152,14 +152,14 @@ public class UserDetailsActivity extends ListActivity {
             amountText.setTextColor(getResources().getColor(R.color.money_green));
         }
         // TODO picture
-        
+
         if (ispayment) {
             payButton.setVisibility(View.VISIBLE);
         } else {
             payButton.setVisibility(View.INVISIBLE);
         }
     }
-    
+
     /**
      * Initializes button handlers.
      */
@@ -187,7 +187,7 @@ public class UserDetailsActivity extends ListActivity {
                 finish();
             }
         });
-        
+
         chargesButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -199,7 +199,7 @@ public class UserDetailsActivity extends ListActivity {
                 finish();
             }
         });
-        
+
         payButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,45 +207,45 @@ public class UserDetailsActivity extends ListActivity {
             }
         });
     }
-    
+
     private void refresh() {
         transactions.clear();
-        
+
         // First query where you are the owner and the other person is a participant
         Expense.query(Expense.class,
                 new StackMobQuery().fieldIsEqualTo("owner", serial)
-                    .fieldIsIn("parties", Arrays.asList(recipientserial)),
+                .fieldIsIn("parties", Arrays.asList(recipientserial)),
                 StackMobOptions.depthOf(1),
                 new StackMobQueryCallback<Expense>() {
-                    @Override
-                    public void failure(StackMobException e) {
-                        Toaster.show(getApplicationContext(), "Expense lookup error - fail");
-                    }
+            @Override
+            public void failure(StackMobException e) {
+                Toaster.show(getApplicationContext(), "Expense lookup error - fail");
+            }
 
-                    @Override
-                    public void success(List<Expense> expenses) {
-                        updateList(expenses);
-                    }
-                });
-        
+            @Override
+            public void success(List<Expense> expenses) {
+                updateList(expenses);
+            }
+        });
+
         // Second query is the opposite
         Expense.query(Expense.class,
                 new StackMobQuery().fieldIsIn("parties", Arrays.asList(serial))
-                    .fieldIsEqualTo("owner", recipientserial),
+                .fieldIsEqualTo("owner", recipientserial),
                 StackMobOptions.depthOf(1),
                 new StackMobQueryCallback<Expense>() {
-                    @Override
-                    public void failure(StackMobException e) {
-                        Toaster.show(getApplicationContext(), "Expense lookup error - fail");
-                    }
+            @Override
+            public void failure(StackMobException e) {
+                Toaster.show(getApplicationContext(), "Expense lookup error - fail");
+            }
 
-                    @Override
-                    public void success(List<Expense> expenses) {
-                        updateList(expenses);
-                    }
-                });
+            @Override
+            public void success(List<Expense> expenses) {
+                updateList(expenses);
+            }
+        });
     }
-    
+
     private void updateList(List<Expense> expenses) {
         this.expenses.addAll(expenses);
         Collections.sort(expenses);
@@ -272,7 +272,7 @@ public class UserDetailsActivity extends ListActivity {
         }
         refreshHandler.sendEmptyMessage(0);
     }
-    
+
     @SuppressLint("HandlerLeak")
     Handler refreshHandler = new Handler() {
         @Override
@@ -280,29 +280,29 @@ public class UserDetailsActivity extends ListActivity {
             adapter.notifyDataSetChanged();
         };
     };
-    
+
     private void showPaymentDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_paymentform, null);
-        
+
         TextView recipientText     = (TextView)  view.findViewById(R.id.recipientText);
         final EditText amountInput = (EditText)  view.findViewById(R.id.amountInput);
         ImageView venmoImage       = (ImageView) view.findViewById(R.id.venmoImage);
         ImageView cashImage        = (ImageView) view.findViewById(R.id.cashImage);
-        
+
         builder.setView(view);
         final AlertDialog dialog = builder.show();
-        
+
         recipientText.setText(recipientname);
         amountInput.setText(CurrencyCreator.toDecimal(amount));
         venmoImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-            	int amount = CurrencyCreator.toCents(amountInput.getText().toString());
-            	
-            	venmoInit(recipient.phone_number,amount+"",VENMO_TAG);
+                int amount = CurrencyCreator.toCents(amountInput.getText().toString());
+
+                venmoInit(recipient.phone_number,amount+"",VENMO_TAG);
                 Toaster.show(getApplicationContext(), "venmo!");
             }
         });
@@ -310,34 +310,24 @@ public class UserDetailsActivity extends ListActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                
+
                 int amount = CurrencyCreator.toCents(amountInput.getText().toString());
                 Payment payment = new Payment(self, recipient, amount, false);
                 payment.save();
                 Toaster.show(getApplicationContext(),
                         "Transaction complete. Go pay " + recipientname +
                         " " + CurrencyCreator.toDollars(amount) + "!");
-                for (Expense expense : expenses) {
-                    if (expense.parties.contains(self)) {
-                        expense.parties.remove(self);
-                    } else {
-                        expense.parties.remove(recipient);
-                    }
-                    if (expense.parties.size() == 0) {
-                        expense.destroy();
-                    }
-                }
                 dialog.dismiss();
                 finish();
             }
         });
     }
-    
+
     /**
      * Venmo payment flow.
      */
     private void venmoInit(String recipient, String amt, String note){
-    	
+
         try {
             Intent venmoIntent = VenmoLibrary.openVenmoPayment(VENMO_APP_ID, VENMO_APP_NAME, recipient, amt, note, VENMO_TEST_TXN);
             startActivityForResult(venmoIntent, RequestCode.VENMO.ordinal());
@@ -349,7 +339,7 @@ public class UserDetailsActivity extends ListActivity {
             startActivityForResult(venmoIntent, 1);
         }
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
