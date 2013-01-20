@@ -106,7 +106,6 @@ public class ExpenseFormActivity extends Activity {
                     return;
                 }
                 
-                parties.add(self);
                 
                 Expense e = new Expense(self, parties, parties.size() + 1,
                         vendor, amount, description);
@@ -143,6 +142,7 @@ public class ExpenseFormActivity extends Activity {
         splitWithBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
+            	parties.clear();
                 Intent i = new Intent(getApplicationContext(), 
                         ContactsActivity.class);
                 startActivityForResult(i, 1);

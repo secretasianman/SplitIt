@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fivepoundshakes.splitit.UserDetailsActivity.RequestCode;
 import com.fivepoundshakes.splitit.VenmoLibrary.VenmoResponse;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMobQuery;
@@ -20,20 +21,10 @@ import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
 public class MainActivity extends Activity {
-    enum RequestCode {
-        VENMO, NEWUSER
+	enum RequestCode {
+        NEWUSER
     };
     
-    private final String VENMO_APP_ID = "1219";
-    private final String VENMO_APP_SECRET = "Xzygvtey8MhKw9Fgf3PdNHMkxLZfU9pw";
-    private final String VENMO_APP_NAME = "SplitIt";
-    private final String VENMO_TEST_TXN = "pay";
-	
-	//Test vars
-    private String VENMO_TEST_RECIPIENT = "robertli";
-    private String VENMO_TEST_AMT = "1";
-    private String VENMO_TEST_NOTE = "Testing this shit, foo!";
-	
     private User self;
     private String serial;
     
@@ -143,49 +134,11 @@ public class MainActivity extends Activity {
         });
     }
     
-    /**
-     * Venmo payment flow.
-     */
-    private void venmoInit(String recipient, String amt, String note){
-    	
-        try {
-            Intent venmoIntent = VenmoLibrary.openVenmoPayment(VENMO_APP_ID, VENMO_APP_NAME, recipient, amt, note, VENMO_TEST_TXN);
-            startActivityForResult(venmoIntent, RequestCode.VENMO.ordinal());
-        } catch (android.content.ActivityNotFoundException er) {
-            //Venmo native app not install on device, so let's instead open a mobile web version of Venmo in a WebView
-            Intent venmoIntent = new Intent(MainActivity.this, VenmoWebViewActivity.class);
-            String venmo_uri = VenmoLibrary.openVenmoPaymentInWebView(VENMO_APP_ID, VENMO_APP_NAME, recipient, amt, note, VENMO_TEST_TXN);
-            venmoIntent.putExtra("url", venmo_uri);
-            startActivityForResult(venmoIntent, 1);
-        }
-    }
-    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         RequestCode request = RequestCode.values()[requestCode];
         switch(request) {
-            case VENMO: {
-                if(resultCode == RESULT_OK) {
-                    String signedrequest = data.getStringExtra("signedrequest");
-                    if(signedrequest != null) {
-                        VenmoResponse response = (new VenmoLibrary()).validateVenmoPaymentResponse(signedrequest, VENMO_APP_SECRET);
-                        if(response.getSuccess().equals("1")) {
-                            //Payment successful.  Use data from response object to display a success message
-                            String note = response.getNote();
-                            String amount = response.getAmount();
-                        }
-                    }
-                    else {
-                        String error_message = data.getStringExtra("error_message");
-                        //An error occurred.  Make sure to display the error_message to the user
-                    }                               
-                }
-                else if(resultCode == RESULT_CANCELED) {
-                    //The user cancelled the payment
-                }
-                break;
-            }
             case NEWUSER: {
                 getUser();
                 break;
