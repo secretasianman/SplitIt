@@ -117,6 +117,12 @@ public class UserDetailsActivity extends ListActivity {
             amountText.setTextColor(getResources().getColor(R.color.money_green));
         }
         // TODO picture
+        
+        if (ispayment) {
+            payButton.setVisibility(View.VISIBLE);
+        } else {
+            payButton.setVisibility(View.INVISIBLE);
+        }
     }
     
     /**
