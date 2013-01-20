@@ -18,7 +18,7 @@ public class CurrencyCreator {
     
     public static int toCents(String amount) {
         try {
-            return Integer.parseInt(amount);
+            return Integer.parseInt(amount) * 100;
         } catch (NumberFormatException e) { }
         
         try {
