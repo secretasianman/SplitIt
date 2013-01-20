@@ -30,11 +30,17 @@
         android:textColor="@color/money_green"
         android:textSize="35sp" />
 
-    <QuickContactBadge
-        android:id="@+id/picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="430dp"
+            android:layout_marginRight="242dp"
+            android:padding="0dp"
+            android:src="@drawable/defaultpic" />
 
 </RelativeLayout>
