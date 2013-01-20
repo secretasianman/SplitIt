@@ -5,6 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="add_expense">Enter New Split</string>
+    <string name="resolve_expense">Enter Payment</string>
+    <string name="recipient">Recipient</string>
     <string name="add_group">Add Group</string>
     <string name="in">In</string>
     <string name="out">Out</string>
