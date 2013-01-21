@@ -213,7 +213,6 @@ public class ListPaymentsActivity extends ListActivity {
             }
             payments.put(user, new ListEntry(user, total, true));
         }
-        System.out.println("P"+payments.size());
         
         count++;
         if (count == 3) {
@@ -247,7 +246,6 @@ public class ListPaymentsActivity extends ListActivity {
             }
             charges.put(user, new ListEntry(user, total, false));
         }
-        System.out.println("C"+charges.size());
         
         count++;
         if (count == 3) {

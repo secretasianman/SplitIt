@@ -218,7 +218,6 @@ public class ListChargesActivity extends ListActivity {
             }
             payments.put(user, new ListEntry(user, total, true));
         }
-        System.out.println("P"+payments.size());
 
         count++;
         if (count == 3) {
@@ -231,19 +230,16 @@ public class ListChargesActivity extends ListActivity {
                 new HashMap<User, LinkedList<Expense>>();
         for (Expense expense : expenses) {
             for (User user : expense.parties) {
-                System.out.println(user);
                 LinkedList<Expense> list;
                 if (individual.containsKey(user)) {
                     list = individual.get(user);
                 } else {
                     list = new LinkedList<Expense>();
+                    individual.put(user, list);
                 }
                 list.add(expense);
-                individual.put(user, list);
-                System.out.println(user);
             }
         }
-        System.out.println("ind" + individual.size());
 
         charges.clear();
         for (Map.Entry<User, LinkedList<Expense>> entry : individual.entrySet()) {
@@ -255,7 +251,6 @@ public class ListChargesActivity extends ListActivity {
             }
             charges.put(user, new ListEntry(user, total, false));
         }
-        System.out.println("C"+charges.size());
 
         count++;
         if (count == 3) {
